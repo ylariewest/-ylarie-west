@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ylarie West</title>
+
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f5f7fb;
+      background: #f4f6fa;
       color: #172033;
     }
 
@@ -20,44 +21,51 @@
     }
 
     .container {
-      max-width: 700px;
-      margin: 50px auto;
-      padding: 25px;
-      text-align: center;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
     }
 
     .card {
       background: white;
-      padding: 35px;
+      padding: 30px;
       border-radius: 18px;
       box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
     }
 
-    h1 {
-      font-size: 40px;
+    h1, h2 {
+      text-align: center;
     }
 
-    p {
-      line-height: 1.6;
+    input {
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 9px;
     }
 
-    .button {
-      display: inline-block;
-      margin: 10px;
-      padding: 14px 24px;
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 9px;
       background: #172033;
       color: white;
-      text-decoration: none;
-      border-radius: 10px;
       font-weight: bold;
+      cursor: pointer;
     }
 
     .demo {
-      margin-top: 25px;
+      margin-top: 20px;
       padding: 12px;
-      background: #fff4d6;
-      border-radius: 10px;
-      font-size: 14px;
+      background: #fff3cd;
+      border-radius: 9px;
+      font-size: 13px;
+      text-align: center;
     }
   </style>
 </head>
@@ -69,20 +77,34 @@
 </header>
 
 <div class="container">
+
   <div class="card">
-    <h1>Bienvenue sur Ylarie West</h1>
+    <h1>Créer un compte</h1>
 
-    <p>
-      Votre espace de gestion et de simulation d’investissement.
-    </p>
+    <input type="text" placeholder="Nom complet">
+    <input type="email" placeholder="Adresse e-mail">
+    <input type="password" placeholder="Mot de passe">
 
-    <a href="#" class="button">Créer un compte</a>
-    <a href="#" class="button">Se connecter</a>
-
-    <div class="demo">
-      ⚠️ VERSION DÉMO — Aucun dépôt ou retrait d’argent réel.
-    </div>
+    <button onclick="alert('Compte créé — version démo')">
+      Créer mon compte
+    </button>
   </div>
+
+  <div class="card">
+    <h2>Se connecter</h2>
+
+    <input type="email" placeholder="Adresse e-mail">
+    <input type="password" placeholder="Mot de passe">
+
+    <button onclick="alert('Connexion — version démo')">
+      Se connecter
+    </button>
+  </div>
+
+  <div class="demo">
+    ⚠️ VERSION DÉMO — Aucun argent réel n'est accepté.
+  </div>
+
 </div>
 
 </body>
