@@ -7,31 +7,71 @@
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f6fa;color:#172033;padding-bottom:82px}
-header{background:#172033;color:#fff;padding:22px 18px;text-align:center}
-header h1{margin:0;font-size:24px}
-header small{opacity:.75}
+body{
+ margin:0;font-family:Arial,sans-serif;background:#f4f6fa;color:#172033;
+ padding-bottom:82px
+}
+header{
+ background:linear-gradient(135deg,#111a2d,#344b78);
+ color:white;padding:23px 18px;text-align:center
+}
+header h1{margin:0;font-size:25px}
+header small{opacity:.8}
 .container{max-width:620px;margin:auto;padding:18px}
-.card{background:#fff;border-radius:20px;padding:20px;margin-bottom:16px;box-shadow:0 6px 22px rgba(0,0,0,.07)}
-.hero{background:linear-gradient(135deg,#172033,#33456b);color:white}
-.hero h2{font-size:25px;margin-top:0}
-.balance{font-size:34px;font-weight:700;margin:18px 0}
+.card{
+ background:#fff;border-radius:20px;padding:20px;margin-bottom:16px;
+ box-shadow:0 6px 22px rgba(0,0,0,.07)
+}
+.hero{background:linear-gradient(135deg,#172033,#405b91);color:white}
+.balance{font-size:32px;font-weight:bold;margin:18px 0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .stat{background:#f5f7fb;border-radius:14px;padding:15px}
-.product{border:1px solid #e6e9ef;border-radius:16px;padding:17px;margin:12px 0}
-.product h3{margin:0 0 8px}
-.product button,.main-btn{width:100%;border:0;border-radius:11px;padding:13px;background:#172033;color:white;font-weight:700}
-.disabled{background:#d9dde5!important;color:#667085!important}
-input{width:100%;padding:13px;margin:7px 0;border:1px solid #ddd;border-radius:10px}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:9px 3px;box-shadow:0 -4px 18px rgba(0,0,0,.1);z-index:5}
-.nav button{border:0;background:none;color:#172033;font-size:11px}
+.machine{
+ background:#fff;border:1px solid #e5e8ef;border-radius:17px;
+ padding:18px;margin:13px 0
+}
+.machine h3{margin:0 0 8px}
+button{
+ border:0;border-radius:11px;padding:13px;background:#172033;
+ color:white;font-weight:bold;cursor:pointer
+}
+.main-btn{width:100%}
+.machine button{width:100%;margin-top:8px}
+.disabled{background:#d9dde5;color:#687386}
+.nav{
+ position:fixed;bottom:0;left:0;right:0;background:white;
+ display:flex;justify-content:space-around;padding:9px 3px;
+ box-shadow:0 -4px 18px rgba(0,0,0,.1);z-index:5
+}
+.nav button{background:none;color:#172033;font-size:11px;padding:4px}
 .nav span{display:block;font-size:21px;margin-bottom:3px}
 .hidden{display:none}
 .item{padding:13px 0;border-bottom:1px solid #eee}
-.demo{background:#fff3cd;color:#665000;border-radius:12px;padding:12px;font-size:13px;text-align:center;margin-top:15px}
-.badge{display:inline-block;background:#e9edf5;padding:6px 10px;border-radius:20px;font-size:12px}
-.linkbox{background:#f5f7fb;padding:13px;border-radius:10px;word-break:break-all}
-h2{margin-top:0}
+.demo{
+ background:#fff3cd;color:#665000;border-radius:12px;
+ padding:12px;font-size:13px;text-align:center;margin-top:15px
+}
+.linkbox{
+ background:#f5f7fb;padding:13px;border-radius:10px;
+ word-break:break-all
+}
+input{
+ width:100%;padding:13px;margin:7px 0;
+ border:1px solid #ddd;border-radius:10px
+}
+.badge{
+ display:inline-block;background:#e8edf7;padding:6px 10px;
+ border-radius:20px;font-size:12px
+}
+.timer{
+ font-size:22px;font-weight:bold;text-align:center;margin:12px 0
+}
+.progress{
+ height:9px;background:#e6e9ef;border-radius:20px;overflow:hidden
+}
+.progress div{
+ height:100%;background:#172033;width:0%
+}
 </style>
 </head>
 
@@ -51,9 +91,11 @@ h2{margin-top:0}
 <input id="loginEmail" type="email" placeholder="Adresse e-mail">
 <input id="loginPassword" type="password" placeholder="Mot de passe">
 <button class="main-btn" onclick="login()">Se connecter</button>
-<p style="text-align:center">Pas encore de compte ?</p>
-<button class="main-btn" onclick="show('register')">Créer un compte</button>
-<div class="demo">Démo uniquement — n'utilisez pas votre vrai mot de passe.</div>
+<br><br>
+<button class="main-btn" onclick="showAuth('register')">Créer un compte</button>
+<div class="demo">
+Démo uniquement. N'utilisez pas votre vrai mot de passe.
+</div>
 </div>
 </section>
 
@@ -61,217 +103,826 @@ h2{margin-top:0}
 <section id="register" class="hidden">
 <div class="card">
 <h2>Créer un compte</h2>
-<input id="regName" type="text" placeholder="Nom complet">
+<input id="regName" placeholder="Nom complet">
 <input id="regEmail" type="email" placeholder="Adresse e-mail">
 <input id="regPassword" type="password" placeholder="Mot de passe">
 <button class="main-btn" onclick="register()">Créer mon compte</button>
-<p style="text-align:center" onclick="show('login')">J'ai déjà un compte</p>
+<br><br>
+<button class="main-btn" onclick="showAuth('login')">Retour connexion</button>
 </div>
 </section>
 
-<!-- APP -->
+<!-- APPLICATION -->
 <section id="app" class="hidden">
 
 <!-- ACCUEIL -->
 <div id="home">
+
 <div class="card hero">
 <span class="badge">DÉMO</span>
 <h2>Bienvenue, <span id="nameDisplay">Utilisateur</span> 👋</h2>
 <p>Votre espace Ylarie West</p>
-<div class="balance">125 000 FCFA</div>
+<div class="balance" id="balanceDisplay">125 000 FCFA</div>
 <small>Solde fictif</small>
 </div>
 
 <div class="grid">
-<div class="stat"><strong>📈 Revenus simulés</strong><br><br>18 500 FCFA</div>
-<div class="stat"><strong>📦 Produits actifs</strong><br><br>3</div>
+<div class="stat">
+<strong>📈 Revenus simulés</strong>
+<p id="totalRevenue">0 FCFA</p>
+</div>
+<div class="stat">
+<strong>⚙️ Machines</strong>
+<p id="machineCount">0 active</p>
+</div>
 </div>
 
 <div class="card">
 <h2>Activité récente</h2>
-<div class="item">Produit Plus — résultat simulé <strong>+750 FCFA</strong></div>
-<div class="item">Produit Premium — résultat simulé <strong>+1 650 FCFA</strong></div>
-<div class="item">Bonus invitation — simulation <strong>+4 500 FCFA</strong></div>
+<div id="recentActivity">
+<p>Aucune activité pour le moment.</p>
 </div>
 </div>
 
-<!-- PRODUITS -->
-<div id="products" class="hidden">
+<div class="demo">
+⚠️ Tous les montants affichés sont fictifs.
+</div>
+
+</div>
+
+
+<!-- MACHINES -->
+<div id="machines" class="hidden">
+
 <div class="card">
-<h2>📦 Produits</h2>
-<p>Produits disponibles pour la simulation.</p>
+<h2>⚙️ Machines</h2>
+<p>Choisissez une machine pour effectuer un achat de démonstration.</p>
 </div>
 
-<script>
-const products=[
-["Starter","4 500","150"],
-["Basic","10 000","300"],
-["Plus","25 000","750"],
-["Premium","55 000","1 650"],
-["Pro","100 000","3 000"],
-["Business","200 000","6 000"],
-["Gold","500 000","15 000"],
-["Elite","1 000 000","30 000"],
-["VIP","2 000 000","60 000"]
-];
-document.write(products.map(p=>`
-<div class="product">
-<h3>${p[0]}</h3>
-<p>Montant simulé : <strong>${p[1]} FCFA</strong></p>
-<p>Résultat quotidien simulé : <strong>+${p[2]} FCFA</strong></p>
-<button onclick="buyDemo('${p[0]}')">Sélectionner — Démo</button>
-</div>`).join(""));
-</script>
+<div id="machineList"></div>
 
-<div class="demo">⚠️ Aucun achat réel et aucun revenu réel ou garanti.</div>
+<div class="card">
+<h2>Mes machines</h2>
+<div id="myMachines">
+<p>Aucune machine achetée.</p>
 </div>
+</div>
+
+<div class="demo">
+Les achats et revenus sont entièrement simulés.
+</div>
+
+</div>
+
 
 <!-- INVITATION -->
 <div id="invite" class="hidden">
+
 <div class="card">
 <h2>👥 Invitation</h2>
-<p>Votre lien d'invitation de démonstration :</p>
+<p>Votre lien personnel de démonstration :</p>
+
 <div class="linkbox" id="inviteLink"></div>
+
 <br>
-<button class="main-btn" onclick="copyInvite()">Copier le lien</button>
+
+<button class="main-btn" onclick="copyInvite()">
+Partager mon lien
+</button>
 </div>
 
 <div class="card">
 <h2>🎁 Bonus</h2>
-<div class="balance" style="font-size:28px">4 500 FCFA</div>
-<p>Bonus simulé pour chaque inscription confirmée avec votre lien.</p>
+<div class="balance" style="font-size:28px">
+4 500 FCFA
+</div>
+<p>
+Bonus simulé pour une inscription confirmée.
+</p>
 </div>
 
 <div class="card">
 <h2>Mes invitations</h2>
-<div class="item">Utilisateur démo #1 — Inscrit</div>
-<div class="item">Utilisateur démo #2 — En attente</div>
-<p><strong>Inscriptions confirmées :</strong> 1</p>
-<p><strong>Bonus simulé :</strong> +4 500 FCFA</p>
+
+<div class="item">
+👤 Utilisateur démo #1
+<br>
+<small>Inscription confirmée</small>
 </div>
 
-<div class="demo">Cette fonction est entièrement fictive dans cette démonstration.</div>
+<p>
+<strong>Inscriptions :</strong> 1
+</p>
+
+<p>
+<strong>Bonus simulé :</strong> +4 500 FCFA
+</p>
+
 </div>
+
+</div>
+
 
 <!-- SOLDE -->
 <div id="balance" class="hidden">
+
 <div class="card hero">
 <h2>💰 Mon solde</h2>
-<div class="balance">125 000 FCFA</div>
+<div class="balance" id="balancePage">125 000 FCFA</div>
 <small>Solde de simulation</small>
 </div>
 
 <div class="grid">
-<div class="stat"><strong>📥 Dépôt</strong><br><br><button class="main-btn disabled" disabled>Indisponible</button></div>
-<div class="stat"><strong>📤 Retrait</strong><br><br><button class="main-btn disabled" disabled>Indisponible</button></div>
+
+<div class="stat">
+<strong>📥 Dépôt</strong>
+<br><br>
+<button class="main-btn disabled" disabled>
+Indisponible
+</button>
+</div>
+
+<div class="stat">
+<strong>📤 Retrait</strong>
+<br><br>
+<button class="main-btn disabled" disabled>
+Indisponible
+</button>
+</div>
+
 </div>
 
 <div class="card">
 <h2>Historique</h2>
-<div class="item">Simulation — +750 FCFA</div>
-<div class="item">Simulation — +1 650 FCFA</div>
-<div class="item">Bonus démo — +4 500 FCFA</div>
+<div id="history">
+<p>Aucune opération.</p>
+</div>
 </div>
 
-<div class="demo">⚠️ Les dépôts et retraits réels ne sont pas disponibles.</div>
+<div class="demo">
+Les dépôts et retraits réels ne sont pas disponibles.
 </div>
+
+</div>
+
 
 <!-- PROFIL -->
 <div id="profile" class="hidden">
+
 <div class="card">
 <h2>👤 Profil</h2>
-<p><strong>Nom :</strong> <span id="profileName"></span></p>
-<p><strong>E-mail :</strong> <span id="profileEmail"></span></p>
-<p><strong>Type de compte :</strong> Démonstration</p>
-<button class="main-btn" onclick="logout()">Se déconnecter</button>
+
+<p>
+<strong>Nom :</strong>
+<span id="profileName"></span>
+</p>
+
+<p>
+<strong>E-mail :</strong>
+<span id="profileEmail"></span>
+</p>
+
+<p>
+<strong>Compte :</strong> Démonstration
+</p>
+
+<button class="main-btn" onclick="logout()">
+Se déconnecter
+</button>
+
 </div>
+
 </div>
 
 </section>
 </div>
 
+
 <!-- NAVIGATION -->
 <div id="nav" class="nav hidden">
-<button onclick="page('home')"><span>🏠</span>Accueil</button>
-<button onclick="page('products')"><span>📦</span>Produits</button>
-<button onclick="page('invite')"><span>👥</span>Invitation</button>
-<button onclick="page('balance')"><span>💰</span>Solde</button>
-<button onclick="page('profile')"><span>👤</span>Profil</button>
+
+<button onclick="page('home')">
+<span>🏠</span>Accueil
+</button>
+
+<button onclick="page('machines')">
+<span>⚙️</span>Machines
+</button>
+
+<button onclick="page('invite')">
+<span>👥</span>Invitation
+</button>
+
+<button onclick="page('balance')">
+<span>💰</span>Solde
+</button>
+
+<button onclick="page('profile')">
+<span>👤</span>Profil
+</button>
+
 </div>
 
+
 <script>
-function show(id){
-document.getElementById("login").classList.add("hidden");
-document.getElementById("register").classList.add("hidden");
-document.getElementById("app").classList.add("hidden");
-document.getElementById("nav").classList.add("hidden");
-document.getElementById(id).classList.remove("hidden");
+
+/* MACHINES DE DÉMONSTRATION */
+
+const machines=[
+{
+name:"Starter",
+price:4500,
+daily:150,
+days:365
+},
+{
+name:"Basic",
+price:10000,
+daily:300,
+days:365
+},
+{
+name:"Plus",
+price:25000,
+daily:750,
+days:365
+},
+{
+name:"Premium",
+price:55000,
+daily:1650,
+days:365
+},
+{
+name:"Pro",
+price:100000,
+daily:3000,
+days:365
+},
+{
+name:"Business",
+price:200000,
+daily:6000,
+days:365
+},
+{
+name:"Gold",
+price:500000,
+daily:15000,
+days:365
+},
+{
+name:"Elite",
+price:1000000,
+daily:30000,
+days:365
+},
+{
+name:"VIP",
+price:2000000,
+daily:60000,
+days:365
+}
+];
+
+let myMachines=
+JSON.parse(localStorage.getItem("demoMachines")||"[]");
+
+let history=
+JSON.parse(localStorage.getItem("demoHistory")||"[]");
+
+let balance=
+Number(localStorage.getItem("demoBalance")||125000);
+
+
+/* AFFICHER LES MACHINES */
+
+function renderMachines(){
+
+const box=document.getElementById("machineList");
+
+box.innerHTML="";
+
+machines.forEach((m,index)=>{
+
+const total=m.daily*m.days;
+
+box.innerHTML+=`
+
+<div class="machine">
+
+<span class="badge">365 JOURS</span>
+
+<h3>⚙️ Machine ${m.name}</h3>
+
+<p>
+Prix simulé :
+<strong>${format(m.price)} FCFA</strong>
+</p>
+
+<p>
+Revenu quotidien simulé :
+<strong>+${format(m.daily)} FCFA</strong>
+</p>
+
+<p>
+Total simulé sur 365 jours :
+<strong>${format(total)} FCFA</strong>
+</p>
+
+<button onclick="buyMachine(${index})">
+Acheter — Démo
+</button>
+
+</div>
+
+`;
+
+});
+
+renderMyMachines();
+
 }
 
+
+/* ACHAT DÉMO */
+
+function buyMachine(index){
+
+const m=machines[index];
+
+const machine={
+
+id:Date.now(),
+
+name:m.name,
+
+price:m.price,
+
+daily:m.daily,
+
+days:m.days,
+
+start:Date.now(),
+
+lastCredit:Date.now(),
+
+credited:0
+
+};
+
+myMachines.push(machine);
+
+localStorage.setItem(
+"demoMachines",
+JSON.stringify(myMachines)
+);
+
+history.unshift(
+"Machine "+m.name+" achetée — simulation"
+);
+
+localStorage.setItem(
+"demoHistory",
+JSON.stringify(history)
+);
+
+alert(
+"Machine "+m.name+
+" ajoutée à vos machines de démonstration."
+);
+
+renderMyMachines();
+
+updateDashboard();
+
+}
+
+
+/* MES MACHINES */
+
+function renderMyMachines(){
+
+const box=document.getElementById("myMachines");
+
+if(myMachines.length===0){
+
+box.innerHTML=
+"<p>Aucune machine achetée.</p>";
+
+return;
+
+}
+
+box.innerHTML="";
+
+myMachines.forEach((m,index)=>{
+
+const elapsed=
+Date.now()-m.start;
+
+const day=
+Math.min(
+Math.floor(elapsed/(24*60*60*1000)),
+m.days
+);
+
+const progress=
+Math.min((day/m.days)*100,100);
+
+const total=
+m.daily*m.days;
+
+box.innerHTML+=`
+
+<div class="machine">
+
+<span class="badge">
+${day<m.days?"ACTIVE":"TERMINÉE"}
+</span>
+
+<h3>⚙️ Machine ${m.name}</h3>
+
+<p>
+Jour <strong>${day}</strong> / ${m.days}
+</p>
+
+<div class="progress">
+<div style="width:${progress}%"></div>
+</div>
+
+<p>
+Revenu quotidien simulé :
+<strong>+${format(m.daily)} FCFA</strong>
+</p>
+
+<p>
+Revenus cumulés simulés :
+<strong>${format(m.credited)} FCFA</strong>
+</p>
+
+<p class="timer" id="timer-${m.id}">
+Calcul...
+</p>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+/* CALCUL DES CYCLES DE 24 H */
+
+function updateMachines(){
+
+let changed=false;
+
+myMachines.forEach(m=>{
+
+const now=Date.now();
+
+const cycles=Math.floor(
+(now-m.lastCredit)/(24*60*60*1000)
+);
+
+if(cycles>0 && m.credited<m.daily*m.days){
+
+const remaining=
+m.daily*m.days-m.credited;
+
+const gain=
+Math.min(
+cycles*m.daily,
+remaining
+);
+
+m.credited+=gain;
+
+m.lastCredit+=
+cycles*24*60*60*1000;
+
+balance+=gain;
+
+history.unshift(
+"Revenu simulé — Machine "+
+m.name+" : +"+
+format(gain)+" FCFA"
+);
+
+changed=true;
+
+}
+
+});
+
+if(changed){
+
+localStorage.setItem(
+"demoMachines",
+JSON.stringify(myMachines)
+);
+
+localStorage.setItem(
+"demoHistory",
+JSON.stringify(history)
+);
+
+localStorage.setItem(
+"demoBalance",
+balance
+);
+
+}
+
+renderMyMachines();
+updateDashboard();
+updateTimers();
+
+}
+
+
+/* COMPTEUR 24H */
+
+function updateTimers(){
+
+myMachines.forEach(m=>{
+
+const el=
+document.getElementById("timer-"+m.id);
+
+if(!el)return;
+
+const elapsed=
+Date.now()-m.lastCredit;
+
+const remaining=
+Math.max(
+0,
+24*60*60*1000-elapsed
+);
+
+const h=
+Math.floor(remaining/3600000);
+
+const min=
+Math.floor((remaining%3600000)/60000);
+
+const sec=
+Math.floor((remaining%60000)/1000);
+
+el.innerText=
+"Prochain revenu simulé : "+
+String(h).padStart(2,"0")+"h "+
+String(min).padStart(2,"0")+"m "+
+String(sec).padStart(2,"0")+"s";
+
+});
+
+}
+
+
+/* TABLEAU DE BORD */
+
+function updateDashboard(){
+
+document.getElementById("balanceDisplay")
+.innerText=format(balance)+" FCFA";
+
+document.getElementById("balancePage")
+.innerText=format(balance)+" FCFA";
+
+const total=myMachines.reduce(
+(a,m)=>a+m.credited,0
+);
+
+document.getElementById("totalRevenue")
+.innerText=format(total)+" FCFA";
+
+document.getElementById("machineCount")
+.innerText=myMachines.length+" active";
+
+const h=document.getElementById("history");
+
+if(history.length===0){
+
+h.innerHTML="<p>Aucune opération.</p>";
+
+}else{
+
+h.innerHTML=history
+.slice(0,8)
+.map(x=>`<div class="item">${x}</div>`)
+.join("");
+
+}
+
+}
+
+
+/* NAVIGATION */
+
+function page(id){
+
+["home","machines","invite","balance","profile"]
+.forEach(x=>
+document.getElementById(x)
+.classList.add("hidden")
+);
+
+document.getElementById(id)
+.classList.remove("hidden");
+
+window.scrollTo(0,0);
+
+if(id==="machines"){
+renderMachines();
+}
+
+updateDashboard();
+
+}
+
+
+/* INSCRIPTION */
+
 function register(){
-let n=document.getElementById("regName").value;
-let e=document.getElementById("regEmail").value;
-let p=document.getElementById("regPassword").value;
-if(!n||!e||!p){alert("Veuillez remplir tous les champs.");return}
+
+const n=
+document.getElementById("regName").value;
+
+const e=
+document.getElementById("regEmail").value;
+
+const p=
+document.getElementById("regPassword").value;
+
+if(!n||!e||!p){
+
+alert("Veuillez remplir tous les champs.");
+
+return;
+
+}
+
 localStorage.setItem("demoName",n);
 localStorage.setItem("demoEmail",e);
 localStorage.setItem("demoPassword",p);
+
 alert("Compte de démonstration créé.");
-show("login");
+
+showAuth("login");
+
 }
+
+
+/* CONNEXION */
 
 function login(){
-let e=document.getElementById("loginEmail").value;
-let p=document.getElementById("loginPassword").value;
-if(e===localStorage.getItem("demoEmail")&&p===localStorage.getItem("demoPassword")){
+
+const e=
+document.getElementById("loginEmail").value;
+
+const p=
+document.getElementById("loginPassword").value;
+
+if(
+e===localStorage.getItem("demoEmail") &&
+p===localStorage.getItem("demoPassword")
+){
+
 openApp();
+
 }else{
+
 alert("E-mail ou mot de passe incorrect.");
+
 }
+
 }
+
+
+/* OUVRIR APPLICATION */
 
 function openApp(){
-document.getElementById("login").classList.add("hidden");
-document.getElementById("register").classList.add("hidden");
-document.getElementById("app").classList.remove("hidden");
-document.getElementById("nav").classList.remove("hidden");
 
-let n=localStorage.getItem("demoName")||"Utilisateur";
-let e=localStorage.getItem("demoEmail")||"";
-document.getElementById("nameDisplay").innerText=n;
-document.getElementById("profileName").innerText=n;
-document.getElementById("profileEmail").innerText=e;
+document.getElementById("login")
+.classList.add("hidden");
 
-let ref="DEMO123";
-document.getElementById("inviteLink").innerText=
-"https://ylariewest.github.io/ylarie-west/?ref="+ref;
+document.getElementById("register")
+.classList.add("hidden");
+
+document.getElementById("app")
+.classList.remove("hidden");
+
+document.getElementById("nav")
+.classList.remove("hidden");
+
+const n=
+localStorage.getItem("demoName")||"Utilisateur";
+
+const e=
+localStorage.getItem("demoEmail")||"";
+
+document.getElementById("nameDisplay")
+.innerText=n;
+
+document.getElementById("profileName")
+.innerText=n;
+
+document.getElementById("profileEmail")
+.innerText=e;
+
+const ref="DEMO123";
+
+document.getElementById("inviteLink")
+.innerText=
+"https://ylariewest.github.io/-ylarie-west/?ref="+ref;
+
+renderMachines();
+
+updateDashboard();
 
 page("home");
+
 }
 
-function page(id){
-["home","products","invite","balance","profile"].forEach(x=>{
-document.getElementById(x).classList.add("hidden");
-});
-document.getElementById(id).classList.remove("hidden");
-window.scrollTo(0,0);
+
+/* AUTH */
+
+function showAuth(id){
+
+document.getElementById("login")
+.classList.add("hidden");
+
+document.getElementById("register")
+.classList.add("hidden");
+
+document.getElementById(id)
+.classList.remove("hidden");
+
 }
 
-function buyDemo(name){
-alert("Produit "+name+" sélectionné pour la simulation. Aucun paiement réel n'a été effectué.");
-}
 
-function copyInvite(){
-navigator.clipboard.writeText(document.getElementById("inviteLink").innerText);
-alert("Lien de démonstration copié.");
-}
+/* DÉCONNEXION */
 
 function logout(){
-document.getElementById("app").classList.add("hidden");
-document.getElementById("nav").classList.add("hidden");
-document.getElementById("login").classList.remove("hidden");
+
+document.getElementById("app")
+.classList.add("hidden");
+
+document.getElementById("nav")
+.classList.add("hidden");
+
+document.getElementById("login")
+.classList.remove("hidden");
+
 alert("Vous êtes déconnecté.");
+
 }
+
+
+/* PARTAGE */
+
+function copyInvite(){
+
+const link=
+document.getElementById("inviteLink").innerText;
+
+if(navigator.share){
+
+navigator.share({
+title:"Ylarie West — Démo",
+text:"Rejoins ma démonstration Ylarie West",
+url:link
+});
+
+}else{
+
+navigator.clipboard.writeText(link);
+
+alert("Lien de démonstration copié.");
+
+}
+
+}
+
+
+/* FORMATAGE */
+
+function format(n){
+
+return Number(n).toLocaleString("fr-FR");
+
+}
+
+
+/* HORLOGE */
+
+setInterval(updateMachines,1000);
+
 </script>
 
 </body>
