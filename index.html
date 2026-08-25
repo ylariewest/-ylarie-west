@@ -7,165 +7,458 @@
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f6fa;color:#172033}
-header{background:#172033;color:white;padding:20px;text-align:center}
-.container{max-width:520px;margin:35px auto;padding:20px}
-.card{background:white;padding:25px;border-radius:18px;margin-bottom:20px;box-shadow:0 5px 20px rgba(0,0,0,.08)}
-h1,h2{text-align:center}
-input{width:100%;padding:13px;margin:7px 0;border:1px solid #ddd;border-radius:9px}
-button{width:100%;padding:13px;margin-top:9px;border:0;border-radius:9px;background:#172033;color:white;font-weight:bold}
-.link{display:block;text-align:center;margin-top:15px;color:#172033;cursor:pointer}
-.hidden{display:none}
-.balance{font-size:32px;font-weight:bold;text-align:center;margin:20px 0}
-.item{padding:15px;border-bottom:1px solid #eee}
-.demo{background:#fff3cd;padding:12px;border-radius:9px;text-align:center;font-size:13px}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f7fb;
+  color:#172033;
+  padding-bottom:80px;
+}
+
+header{
+  background:#172033;
+  color:white;
+  padding:20px;
+  text-align:center;
+}
+
+.container{
+  max-width:600px;
+  margin:auto;
+  padding:20px;
+}
+
+.card{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 5px 20px rgba(0,0,0,.07);
+}
+
+.balance{
+  font-size:34px;
+  font-weight:bold;
+  text-align:center;
+  margin:15px 0;
+}
+
+.stat-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.stat{
+  background:#f5f7fb;
+  border-radius:14px;
+  padding:15px;
+}
+
+.product{
+  border:1px solid #e5e8ee;
+  border-radius:15px;
+  padding:17px;
+  margin-bottom:12px;
+}
+
+.product h3{
+  margin-top:0;
+}
+
+.product button{
+  width:100%;
+  padding:12px;
+  border:0;
+  border-radius:10px;
+  background:#172033;
+  color:white;
+  font-weight:bold;
+}
+
+.item{
+  padding:14px 0;
+  border-bottom:1px solid #eee;
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  display:flex;
+  justify-content:space-around;
+  padding:10px 4px;
+  box-shadow:0 -3px 15px rgba(0,0,0,.08);
+}
+
+.bottom-nav button{
+  background:none;
+  border:0;
+  font-size:12px;
+  color:#172033;
+}
+
+.icon{
+  display:block;
+  font-size:21px;
+  margin-bottom:3px;
+}
+
+.hidden{
+  display:none;
+}
+
+.demo{
+  background:#fff3cd;
+  padding:12px;
+  border-radius:12px;
+  text-align:center;
+  font-size:13px;
+  margin-top:15px;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<h2>Ylarie West</h2>
+  <h2>Ylarie West</h2>
+  <small>ESPACE DÉMO</small>
 </header>
 
 <div class="container">
 
-<!-- INSCRIPTION -->
-<div id="signup" class="card">
-<h1>Créer un compte</h1>
-
-<input id="name" type="text" placeholder="Nom complet">
-<input id="email" type="email" placeholder="Adresse e-mail">
-<input id="password" type="password" placeholder="Mot de passe">
-
-<button onclick="signup()">Créer mon compte</button>
-
-<span class="link" onclick="showLogin()">
-J'ai déjà un compte
-</span>
-</div>
-
-<!-- CONNEXION -->
-<div id="login" class="card hidden">
-<h1>Se connecter</h1>
-
-<input id="loginEmail" type="email" placeholder="Adresse e-mail">
-<input id="loginPassword" type="password" placeholder="Mot de passe">
-
-<button onclick="login()">Se connecter</button>
-
-<span class="link" onclick="showSignup()">
-Créer un compte
-</span>
-</div>
-
-<!-- TABLEAU DE BORD -->
-<div id="dashboard" class="hidden">
+<!-- ACCUEIL -->
+<section id="home">
 
 <div class="card">
-<h1>Bienvenue 👋</h1>
-<p id="welcome"></p>
+  <h2>Bienvenue 👋</h2>
+  <p>Bonjour <strong id="userName">Utilisateur</strong></p>
 
-<div class="balance">10 000 €</div>
-<p style="text-align:center">Solde fictif</p>
+  <div class="balance">
+    125 000 FCFA
+  </div>
+
+  <p style="text-align:center">Solde fictif</p>
 </div>
 
-<div class="card">
-<h2>Mes investissements</h2>
+<div class="stat-grid">
 
-<div class="item">
-<strong>Projet Alpha</strong><br>
-Simulation : +450 €
+<div class="stat">
+<strong>📈 Revenus simulés</strong>
+<p>+18 500 FCFA</p>
 </div>
 
-<div class="item">
-<strong>Projet West</strong><br>
-Simulation : +280 €
+<div class="stat">
+<strong>📦 Produits</strong>
+<p>3 actifs</p>
 </div>
 
 </div>
 
 <div class="card">
-<h2>Historique</h2>
+<h3>Activité récente</h3>
 
 <div class="item">
-Simulation d'investissement — +450 €
+Simulation Produit Plus
+<br>
+<small>+750 FCFA</small>
 </div>
 
 <div class="item">
-Simulation d'investissement — +280 €
+Simulation Produit Premium
+<br>
+<small>+1 650 FCFA</small>
 </div>
 
-<button onclick="logout()">Se déconnecter</button>
 </div>
 
 <div class="demo">
-⚠️ DÉMO — Tous les montants affichés sont fictifs.
+⚠️ DÉMO — Tous les montants et revenus affichés sont fictifs.
+</div>
+
+</section>
+
+
+<!-- PRODUITS -->
+<section id="products" class="hidden">
+
+<div class="card">
+<h2>📦 Produits</h2>
+<p>Choisissez un produit pour effectuer une simulation.</p>
+</div>
+
+<div class="product">
+<h3>Starter</h3>
+<p>Montant : <strong>4 500 FCFA</strong></p>
+<p>Revenu simulé : +150 FCFA</p>
+<button onclick="simulate('Starter')">Acheter — Démo</button>
+</div>
+
+<div class="product">
+<h3>Basic</h3>
+<p>Montant : <strong>10 000 FCFA</strong></p>
+<p>Revenu simulé : +300 FCFA</p>
+<button onclick="simulate('Basic')">Acheter — Démo</button>
+</div>
+
+<div class="product">
+<h3>Plus</h3>
+<p>Montant : <strong>25 000 FCFA</strong></p>
+<p>Revenu simulé : +750 FCFA</p>
+<button onclick="simulate('Plus')">Acheter — Démo</button>
+</div>
+
+<div class="product">
+<h3>Premium</h3>
+<p>Montant : <strong>55 000 FCFA</strong></p>
+<p>Revenu simulé : +1 650 FCFA</p>
+<button onclick="simulate('Premium')">Acheter — Démo</button>
+</div>
+
+<div class="product">
+<h3>Pro</h3>
+<p>Montant : <strong>100 000 FCFA</strong></p>
+<p>Revenu simulé : +3 000 FCFA</p>
+<button onclick="simulate('Pro')">Acheter — Démo</button>
+</div>
+
+<div class="product">
+<h3>Business</h3>
+<p>Montant : <strong>200 000 FCFA</strong></p>
+<p>Revenu simulé : +6 000 FCFA</p>
+<button onclick="simulate('Business')">Acheter — Démo</button>
+</div>
+
+<div class="product">
+<h3>Gold</h3>
+<p>Montant : <strong>500 000 FCFA</strong></p>
+<p>Revenu simulé : +15 000 FCFA</p>
+<button onclick="simulate('Gold')">Acheter — Démo</button>
+</div>
+
+<div class="product">
+<h3>Elite</h3>
+<p>Montant : <strong>1 000 000 FCFA</strong></p>
+<p>Revenu simulé : +30 000 FCFA</p>
+<button onclick="simulate('Elite')">Acheter — Démo</button>
+</div>
+
+<div class="product">
+<h3>VIP</h3>
+<p>Montant : <strong>2 000 000 FCFA</strong></p>
+<p>Revenu simulé : +60 000 FCFA</p>
+<button onclick="simulate('VIP')">Acheter — Démo</button>
+</div>
+
+</section>
+
+
+<!-- INVITATION -->
+<section id="invite" class="hidden">
+
+<div class="card">
+<h2>👥 Invitation</h2>
+
+<p>Votre code d'invitation de démonstration :</p>
+
+<h2>YW-DEMO-2026</h2>
+
+<button onclick="copyCode()">
+Copier le code
+</button>
+
+</div>
+
+<div class="card">
+<h3>Invitations</h3>
+
+<div class="item">
+Utilisateur démo #1
+</div>
+
+<div class="item">
+Utilisateur démo #2
 </div>
 
 </div>
 
+<div class="demo">
+⚠️ Les invitations sont fictives dans cette version.
 </div>
+
+</section>
+
+
+<!-- SOLDE -->
+<section id="balance" class="hidden">
+
+<div class="card">
+
+<h2>💰 Mon solde</h2>
+
+<div class="balance">
+125 000 FCFA
+</div>
+
+<p style="text-align:center">
+Solde de simulation
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Historique</h3>
+
+<div class="item">
+Produit Plus — Simulation
+<br>
++750 FCFA
+</div>
+
+<div class="item">
+Produit Premium — Simulation
+<br>
++1 650 FCFA
+</div>
+
+<div class="item">
+Produit Starter — Simulation
+<br>
++150 FCFA
+</div>
+
+</div>
+
+<div class="demo">
+⚠️ Aucun dépôt ou retrait réel n'est disponible.
+</div>
+
+</section>
+
+
+<!-- PROFIL -->
+<section id="profile" class="hidden">
+
+<div class="card">
+
+<h2>👤 Profil</h2>
+
+<p>
+<strong>Nom :</strong>
+<span id="profileName">Utilisateur</span>
+</p>
+
+<p>
+<strong>Compte :</strong>
+Démo
+</p>
+
+<button onclick="logout()">
+Se déconnecter
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+
+<!-- NAVIGATION -->
+
+<div class="bottom-nav">
+
+<button onclick="showSection('home')">
+<span class="icon">🏠</span>
+Accueil
+</button>
+
+<button onclick="showSection('products')">
+<span class="icon">📦</span>
+Produits
+</button>
+
+<button onclick="showSection('invite')">
+<span class="icon">👥</span>
+Invitation
+</button>
+
+<button onclick="showSection('balance')">
+<span class="icon">💰</span>
+Solde
+</button>
+
+<button onclick="showSection('profile')">
+<span class="icon">👤</span>
+Profil
+</button>
+
+</div>
+
 
 <script>
 
-function showLogin(){
-document.getElementById("signup").classList.add("hidden");
-document.getElementById("login").classList.remove("hidden");
+function showSection(section){
+
+const sections=[
+"home",
+"products",
+"invite",
+"balance",
+"profile"
+];
+
+sections.forEach(function(id){
+document.getElementById(id).classList.add("hidden");
+});
+
+document.getElementById(section).classList.remove("hidden");
+
+window.scrollTo(0,0);
 }
 
-function showSignup(){
-document.getElementById("login").classList.add("hidden");
-document.getElementById("signup").classList.remove("hidden");
-}
 
-function signup(){
+function simulate(product){
 
-let name=document.getElementById("name").value;
-let email=document.getElementById("email").value;
-let password=document.getElementById("password").value;
-
-if(!name || !email || !password){
-alert("Veuillez remplir tous les champs.");
-return;
-}
-
-localStorage.setItem("demoName",name);
-localStorage.setItem("demoEmail",email);
-localStorage.setItem("demoPassword",password);
-
-alert("Compte de démonstration créé.");
-showLogin();
-}
-
-function login(){
-
-let email=document.getElementById("loginEmail").value;
-let password=document.getElementById("loginPassword").value;
-
-let savedEmail=localStorage.getItem("demoEmail");
-let savedPassword=localStorage.getItem("demoPassword");
-
-if(email===savedEmail && password===savedPassword){
-
-document.getElementById("signup").classList.add("hidden");
-document.getElementById("login").classList.add("hidden");
-document.getElementById("dashboard").classList.remove("hidden");
-
-document.getElementById("welcome").innerText=
-"Bonjour "+localStorage.getItem("demoName")+" !";
-
-}else{
-
-alert("E-mail ou mot de passe incorrect.");
+alert(
+"Simulation effectuée pour le produit : "
++ product
++ ". Aucun paiement réel n'a été effectué."
+);
 
 }
+
+
+function copyCode(){
+
+navigator.clipboard.writeText("YW-DEMO-2026");
+
+alert("Code de démonstration copié.");
+
 }
+
 
 function logout(){
 
-document.getElementById("dashboard").classList.add("hidden");
-document.getElementById("login").classList.remove("hidden");
+alert("Déconnexion de la démonstration.");
+
+showSection("home");
+
+}
+
+
+const savedName=localStorage.getItem("demoName");
+
+if(savedName){
+
+document.getElementById("userName").innerText=savedName;
+
+document.getElementById("profileName").innerText=savedName;
 
 }
 
