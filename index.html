@@ -2,466 +2,276 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ylarie West — Démo</title>
 
 <style>
 *{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f5f7fb;
-  color:#172033;
-  padding-bottom:80px;
-}
-
-header{
-  background:#172033;
-  color:white;
-  padding:20px;
-  text-align:center;
-}
-
-.container{
-  max-width:600px;
-  margin:auto;
-  padding:20px;
-}
-
-.card{
-  background:white;
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:18px;
-  box-shadow:0 5px 20px rgba(0,0,0,.07);
-}
-
-.balance{
-  font-size:34px;
-  font-weight:bold;
-  text-align:center;
-  margin:15px 0;
-}
-
-.stat-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-.stat{
-  background:#f5f7fb;
-  border-radius:14px;
-  padding:15px;
-}
-
-.product{
-  border:1px solid #e5e8ee;
-  border-radius:15px;
-  padding:17px;
-  margin-bottom:12px;
-}
-
-.product h3{
-  margin-top:0;
-}
-
-.product button{
-  width:100%;
-  padding:12px;
-  border:0;
-  border-radius:10px;
-  background:#172033;
-  color:white;
-  font-weight:bold;
-}
-
-.item{
-  padding:14px 0;
-  border-bottom:1px solid #eee;
-}
-
-.bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:white;
-  display:flex;
-  justify-content:space-around;
-  padding:10px 4px;
-  box-shadow:0 -3px 15px rgba(0,0,0,.08);
-}
-
-.bottom-nav button{
-  background:none;
-  border:0;
-  font-size:12px;
-  color:#172033;
-}
-
-.icon{
-  display:block;
-  font-size:21px;
-  margin-bottom:3px;
-}
-
-.hidden{
-  display:none;
-}
-
-.demo{
-  background:#fff3cd;
-  padding:12px;
-  border-radius:12px;
-  text-align:center;
-  font-size:13px;
-  margin-top:15px;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6fa;color:#172033;padding-bottom:82px}
+header{background:#172033;color:#fff;padding:22px 18px;text-align:center}
+header h1{margin:0;font-size:24px}
+header small{opacity:.75}
+.container{max-width:620px;margin:auto;padding:18px}
+.card{background:#fff;border-radius:20px;padding:20px;margin-bottom:16px;box-shadow:0 6px 22px rgba(0,0,0,.07)}
+.hero{background:linear-gradient(135deg,#172033,#33456b);color:white}
+.hero h2{font-size:25px;margin-top:0}
+.balance{font-size:34px;font-weight:700;margin:18px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{background:#f5f7fb;border-radius:14px;padding:15px}
+.product{border:1px solid #e6e9ef;border-radius:16px;padding:17px;margin:12px 0}
+.product h3{margin:0 0 8px}
+.product button,.main-btn{width:100%;border:0;border-radius:11px;padding:13px;background:#172033;color:white;font-weight:700}
+.disabled{background:#d9dde5!important;color:#667085!important}
+input{width:100%;padding:13px;margin:7px 0;border:1px solid #ddd;border-radius:10px}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:9px 3px;box-shadow:0 -4px 18px rgba(0,0,0,.1);z-index:5}
+.nav button{border:0;background:none;color:#172033;font-size:11px}
+.nav span{display:block;font-size:21px;margin-bottom:3px}
+.hidden{display:none}
+.item{padding:13px 0;border-bottom:1px solid #eee}
+.demo{background:#fff3cd;color:#665000;border-radius:12px;padding:12px;font-size:13px;text-align:center;margin-top:15px}
+.badge{display:inline-block;background:#e9edf5;padding:6px 10px;border-radius:20px;font-size:12px}
+.linkbox{background:#f5f7fb;padding:13px;border-radius:10px;word-break:break-all}
+h2{margin-top:0}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h2>Ylarie West</h2>
-  <small>ESPACE DÉMO</small>
+<h1>Ylarie West</h1>
+<small>ESPACE CLIENT — DÉMONSTRATION</small>
 </header>
 
 <div class="container">
 
-<!-- ACCUEIL -->
-<section id="home">
-
+<!-- CONNEXION -->
+<section id="login">
 <div class="card">
-  <h2>Bienvenue 👋</h2>
-  <p>Bonjour <strong id="userName">Utilisateur</strong></p>
-
-  <div class="balance">
-    125 000 FCFA
-  </div>
-
-  <p style="text-align:center">Solde fictif</p>
+<h2>Se connecter</h2>
+<input id="loginEmail" type="email" placeholder="Adresse e-mail">
+<input id="loginPassword" type="password" placeholder="Mot de passe">
+<button class="main-btn" onclick="login()">Se connecter</button>
+<p style="text-align:center">Pas encore de compte ?</p>
+<button class="main-btn" onclick="show('register')">Créer un compte</button>
+<div class="demo">Démo uniquement — n'utilisez pas votre vrai mot de passe.</div>
 </div>
-
-<div class="stat-grid">
-
-<div class="stat">
-<strong>📈 Revenus simulés</strong>
-<p>+18 500 FCFA</p>
-</div>
-
-<div class="stat">
-<strong>📦 Produits</strong>
-<p>3 actifs</p>
-</div>
-
-</div>
-
-<div class="card">
-<h3>Activité récente</h3>
-
-<div class="item">
-Simulation Produit Plus
-<br>
-<small>+750 FCFA</small>
-</div>
-
-<div class="item">
-Simulation Produit Premium
-<br>
-<small>+1 650 FCFA</small>
-</div>
-
-</div>
-
-<div class="demo">
-⚠️ DÉMO — Tous les montants et revenus affichés sont fictifs.
-</div>
-
 </section>
 
+<!-- INSCRIPTION -->
+<section id="register" class="hidden">
+<div class="card">
+<h2>Créer un compte</h2>
+<input id="regName" type="text" placeholder="Nom complet">
+<input id="regEmail" type="email" placeholder="Adresse e-mail">
+<input id="regPassword" type="password" placeholder="Mot de passe">
+<button class="main-btn" onclick="register()">Créer mon compte</button>
+<p style="text-align:center" onclick="show('login')">J'ai déjà un compte</p>
+</div>
+</section>
+
+<!-- APP -->
+<section id="app" class="hidden">
+
+<!-- ACCUEIL -->
+<div id="home">
+<div class="card hero">
+<span class="badge">DÉMO</span>
+<h2>Bienvenue, <span id="nameDisplay">Utilisateur</span> 👋</h2>
+<p>Votre espace Ylarie West</p>
+<div class="balance">125 000 FCFA</div>
+<small>Solde fictif</small>
+</div>
+
+<div class="grid">
+<div class="stat"><strong>📈 Revenus simulés</strong><br><br>18 500 FCFA</div>
+<div class="stat"><strong>📦 Produits actifs</strong><br><br>3</div>
+</div>
+
+<div class="card">
+<h2>Activité récente</h2>
+<div class="item">Produit Plus — résultat simulé <strong>+750 FCFA</strong></div>
+<div class="item">Produit Premium — résultat simulé <strong>+1 650 FCFA</strong></div>
+<div class="item">Bonus invitation — simulation <strong>+4 500 FCFA</strong></div>
+</div>
+</div>
 
 <!-- PRODUITS -->
-<section id="products" class="hidden">
-
+<div id="products" class="hidden">
 <div class="card">
 <h2>📦 Produits</h2>
-<p>Choisissez un produit pour effectuer une simulation.</p>
+<p>Produits disponibles pour la simulation.</p>
 </div>
-
-<div class="product">
-<h3>Starter</h3>
-<p>Montant : <strong>4 500 FCFA</strong></p>
-<p>Revenu simulé : +150 FCFA</p>
-<button onclick="simulate('Starter')">Acheter — Démo</button>
-</div>
-
-<div class="product">
-<h3>Basic</h3>
-<p>Montant : <strong>10 000 FCFA</strong></p>
-<p>Revenu simulé : +300 FCFA</p>
-<button onclick="simulate('Basic')">Acheter — Démo</button>
-</div>
-
-<div class="product">
-<h3>Plus</h3>
-<p>Montant : <strong>25 000 FCFA</strong></p>
-<p>Revenu simulé : +750 FCFA</p>
-<button onclick="simulate('Plus')">Acheter — Démo</button>
-</div>
-
-<div class="product">
-<h3>Premium</h3>
-<p>Montant : <strong>55 000 FCFA</strong></p>
-<p>Revenu simulé : +1 650 FCFA</p>
-<button onclick="simulate('Premium')">Acheter — Démo</button>
-</div>
-
-<div class="product">
-<h3>Pro</h3>
-<p>Montant : <strong>100 000 FCFA</strong></p>
-<p>Revenu simulé : +3 000 FCFA</p>
-<button onclick="simulate('Pro')">Acheter — Démo</button>
-</div>
-
-<div class="product">
-<h3>Business</h3>
-<p>Montant : <strong>200 000 FCFA</strong></p>
-<p>Revenu simulé : +6 000 FCFA</p>
-<button onclick="simulate('Business')">Acheter — Démo</button>
-</div>
-
-<div class="product">
-<h3>Gold</h3>
-<p>Montant : <strong>500 000 FCFA</strong></p>
-<p>Revenu simulé : +15 000 FCFA</p>
-<button onclick="simulate('Gold')">Acheter — Démo</button>
-</div>
-
-<div class="product">
-<h3>Elite</h3>
-<p>Montant : <strong>1 000 000 FCFA</strong></p>
-<p>Revenu simulé : +30 000 FCFA</p>
-<button onclick="simulate('Elite')">Acheter — Démo</button>
-</div>
-
-<div class="product">
-<h3>VIP</h3>
-<p>Montant : <strong>2 000 000 FCFA</strong></p>
-<p>Revenu simulé : +60 000 FCFA</p>
-<button onclick="simulate('VIP')">Acheter — Démo</button>
-</div>
-
-</section>
-
-
-<!-- INVITATION -->
-<section id="invite" class="hidden">
-
-<div class="card">
-<h2>👥 Invitation</h2>
-
-<p>Votre code d'invitation de démonstration :</p>
-
-<h2>YW-DEMO-2026</h2>
-
-<button onclick="copyCode()">
-Copier le code
-</button>
-
-</div>
-
-<div class="card">
-<h3>Invitations</h3>
-
-<div class="item">
-Utilisateur démo #1
-</div>
-
-<div class="item">
-Utilisateur démo #2
-</div>
-
-</div>
-
-<div class="demo">
-⚠️ Les invitations sont fictives dans cette version.
-</div>
-
-</section>
-
-
-<!-- SOLDE -->
-<section id="balance" class="hidden">
-
-<div class="card">
-
-<h2>💰 Mon solde</h2>
-
-<div class="balance">
-125 000 FCFA
-</div>
-
-<p style="text-align:center">
-Solde de simulation
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>Historique</h3>
-
-<div class="item">
-Produit Plus — Simulation
-<br>
-+750 FCFA
-</div>
-
-<div class="item">
-Produit Premium — Simulation
-<br>
-+1 650 FCFA
-</div>
-
-<div class="item">
-Produit Starter — Simulation
-<br>
-+150 FCFA
-</div>
-
-</div>
-
-<div class="demo">
-⚠️ Aucun dépôt ou retrait réel n'est disponible.
-</div>
-
-</section>
-
-
-<!-- PROFIL -->
-<section id="profile" class="hidden">
-
-<div class="card">
-
-<h2>👤 Profil</h2>
-
-<p>
-<strong>Nom :</strong>
-<span id="profileName">Utilisateur</span>
-</p>
-
-<p>
-<strong>Compte :</strong>
-Démo
-</p>
-
-<button onclick="logout()">
-Se déconnecter
-</button>
-
-</div>
-
-</section>
-
-</div>
-
-
-<!-- NAVIGATION -->
-
-<div class="bottom-nav">
-
-<button onclick="showSection('home')">
-<span class="icon">🏠</span>
-Accueil
-</button>
-
-<button onclick="showSection('products')">
-<span class="icon">📦</span>
-Produits
-</button>
-
-<button onclick="showSection('invite')">
-<span class="icon">👥</span>
-Invitation
-</button>
-
-<button onclick="showSection('balance')">
-<span class="icon">💰</span>
-Solde
-</button>
-
-<button onclick="showSection('profile')">
-<span class="icon">👤</span>
-Profil
-</button>
-
-</div>
-
 
 <script>
-
-function showSection(section){
-
-const sections=[
-"home",
-"products",
-"invite",
-"balance",
-"profile"
+const products=[
+["Starter","4 500","150"],
+["Basic","10 000","300"],
+["Plus","25 000","750"],
+["Premium","55 000","1 650"],
+["Pro","100 000","3 000"],
+["Business","200 000","6 000"],
+["Gold","500 000","15 000"],
+["Elite","1 000 000","30 000"],
+["VIP","2 000 000","60 000"]
 ];
+document.write(products.map(p=>`
+<div class="product">
+<h3>${p[0]}</h3>
+<p>Montant simulé : <strong>${p[1]} FCFA</strong></p>
+<p>Résultat quotidien simulé : <strong>+${p[2]} FCFA</strong></p>
+<button onclick="buyDemo('${p[0]}')">Sélectionner — Démo</button>
+</div>`).join(""));
+</script>
 
-sections.forEach(function(id){
-document.getElementById(id).classList.add("hidden");
+<div class="demo">⚠️ Aucun achat réel et aucun revenu réel ou garanti.</div>
+</div>
+
+<!-- INVITATION -->
+<div id="invite" class="hidden">
+<div class="card">
+<h2>👥 Invitation</h2>
+<p>Votre lien d'invitation de démonstration :</p>
+<div class="linkbox" id="inviteLink"></div>
+<br>
+<button class="main-btn" onclick="copyInvite()">Copier le lien</button>
+</div>
+
+<div class="card">
+<h2>🎁 Bonus</h2>
+<div class="balance" style="font-size:28px">4 500 FCFA</div>
+<p>Bonus simulé pour chaque inscription confirmée avec votre lien.</p>
+</div>
+
+<div class="card">
+<h2>Mes invitations</h2>
+<div class="item">Utilisateur démo #1 — Inscrit</div>
+<div class="item">Utilisateur démo #2 — En attente</div>
+<p><strong>Inscriptions confirmées :</strong> 1</p>
+<p><strong>Bonus simulé :</strong> +4 500 FCFA</p>
+</div>
+
+<div class="demo">Cette fonction est entièrement fictive dans cette démonstration.</div>
+</div>
+
+<!-- SOLDE -->
+<div id="balance" class="hidden">
+<div class="card hero">
+<h2>💰 Mon solde</h2>
+<div class="balance">125 000 FCFA</div>
+<small>Solde de simulation</small>
+</div>
+
+<div class="grid">
+<div class="stat"><strong>📥 Dépôt</strong><br><br><button class="main-btn disabled" disabled>Indisponible</button></div>
+<div class="stat"><strong>📤 Retrait</strong><br><br><button class="main-btn disabled" disabled>Indisponible</button></div>
+</div>
+
+<div class="card">
+<h2>Historique</h2>
+<div class="item">Simulation — +750 FCFA</div>
+<div class="item">Simulation — +1 650 FCFA</div>
+<div class="item">Bonus démo — +4 500 FCFA</div>
+</div>
+
+<div class="demo">⚠️ Les dépôts et retraits réels ne sont pas disponibles.</div>
+</div>
+
+<!-- PROFIL -->
+<div id="profile" class="hidden">
+<div class="card">
+<h2>👤 Profil</h2>
+<p><strong>Nom :</strong> <span id="profileName"></span></p>
+<p><strong>E-mail :</strong> <span id="profileEmail"></span></p>
+<p><strong>Type de compte :</strong> Démonstration</p>
+<button class="main-btn" onclick="logout()">Se déconnecter</button>
+</div>
+</div>
+
+</section>
+</div>
+
+<!-- NAVIGATION -->
+<div id="nav" class="nav hidden">
+<button onclick="page('home')"><span>🏠</span>Accueil</button>
+<button onclick="page('products')"><span>📦</span>Produits</button>
+<button onclick="page('invite')"><span>👥</span>Invitation</button>
+<button onclick="page('balance')"><span>💰</span>Solde</button>
+<button onclick="page('profile')"><span>👤</span>Profil</button>
+</div>
+
+<script>
+function show(id){
+document.getElementById("login").classList.add("hidden");
+document.getElementById("register").classList.add("hidden");
+document.getElementById("app").classList.add("hidden");
+document.getElementById("nav").classList.add("hidden");
+document.getElementById(id).classList.remove("hidden");
+}
+
+function register(){
+let n=document.getElementById("regName").value;
+let e=document.getElementById("regEmail").value;
+let p=document.getElementById("regPassword").value;
+if(!n||!e||!p){alert("Veuillez remplir tous les champs.");return}
+localStorage.setItem("demoName",n);
+localStorage.setItem("demoEmail",e);
+localStorage.setItem("demoPassword",p);
+alert("Compte de démonstration créé.");
+show("login");
+}
+
+function login(){
+let e=document.getElementById("loginEmail").value;
+let p=document.getElementById("loginPassword").value;
+if(e===localStorage.getItem("demoEmail")&&p===localStorage.getItem("demoPassword")){
+openApp();
+}else{
+alert("E-mail ou mot de passe incorrect.");
+}
+}
+
+function openApp(){
+document.getElementById("login").classList.add("hidden");
+document.getElementById("register").classList.add("hidden");
+document.getElementById("app").classList.remove("hidden");
+document.getElementById("nav").classList.remove("hidden");
+
+let n=localStorage.getItem("demoName")||"Utilisateur";
+let e=localStorage.getItem("demoEmail")||"";
+document.getElementById("nameDisplay").innerText=n;
+document.getElementById("profileName").innerText=n;
+document.getElementById("profileEmail").innerText=e;
+
+let ref="DEMO123";
+document.getElementById("inviteLink").innerText=
+"https://ylariewest.github.io/ylarie-west/?ref="+ref;
+
+page("home");
+}
+
+function page(id){
+["home","products","invite","balance","profile"].forEach(x=>{
+document.getElementById(x).classList.add("hidden");
 });
-
-document.getElementById(section).classList.remove("hidden");
-
+document.getElementById(id).classList.remove("hidden");
 window.scrollTo(0,0);
 }
 
-
-function simulate(product){
-
-alert(
-"Simulation effectuée pour le produit : "
-+ product
-+ ". Aucun paiement réel n'a été effectué."
-);
-
+function buyDemo(name){
+alert("Produit "+name+" sélectionné pour la simulation. Aucun paiement réel n'a été effectué.");
 }
 
-
-function copyCode(){
-
-navigator.clipboard.writeText("YW-DEMO-2026");
-
-alert("Code de démonstration copié.");
-
+function copyInvite(){
+navigator.clipboard.writeText(document.getElementById("inviteLink").innerText);
+alert("Lien de démonstration copié.");
 }
-
 
 function logout(){
-
-alert("Déconnexion de la démonstration.");
-
-showSection("home");
-
+document.getElementById("app").classList.add("hidden");
+document.getElementById("nav").classList.add("hidden");
+document.getElementById("login").classList.remove("hidden");
+alert("Vous êtes déconnecté.");
 }
-
-
-const savedName=localStorage.getItem("demoName");
-
-if(savedName){
-
-document.getElementById("userName").innerText=savedName;
-
-document.getElementById("profileName").innerText=savedName;
-
-}
-
 </script>
 
 </body>
