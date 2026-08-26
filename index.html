@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ylarie West</title>
+<title>Ylarie West — Prototype</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:#fffdf5;color:#182033;padding-bottom:80px}
 header{background:linear-gradient(135deg,#ffd21f,#ffb800);padding:22px;text-align:center}
-header h1{margin:0}
-header p{margin:6px 0;font-size:13px}
+header h1{margin:0}header p{margin:6px 0;font-size:13px}
 .wrap{max-width:720px;margin:auto;padding:16px}
 .card{background:#fff;border-radius:18px;padding:18px;margin-bottom:15px;box-shadow:0 5px 18px #0001}
 .hero{background:linear-gradient(135deg,#fff2a8,#ffd21f)}
@@ -18,7 +17,7 @@ header p{margin:6px 0;font-size:13px}
 .stat{background:#fff8d9;border-radius:14px;padding:13px}
 input,select,button{width:100%;padding:12px;border-radius:10px;margin:6px 0}
 input,select{border:1px solid #ddd;background:#fff}
-button{border:0;background:#182033;color:#fff;font-weight:700}
+button{border:0;background:#182033;color:#fff;font-weight:700;cursor:pointer}
 button.secondary{background:#ffd21f;color:#182033}
 .hidden{display:none!important}
 .notice{background:#fff4c2;padding:11px;border-radius:10px;font-size:13px}
@@ -36,22 +35,27 @@ button.secondary{background:#ffd21f;color:#182033}
 .empty{color:#777;text-align:center;padding:15px}
 </style>
 </head>
+
 <body>
+
 <header>
 <h1>Ylarie West ✈️</h1>
-<p>Prototype</p>
+<p>Prototype / Démonstration</p>
 </header>
+
 <div class="wrap">
-<section id="login">
+
+<section id="loginScreen">
 <div class="card">
 <h2>🔐 Connexion</h2>
 <input id="loginEmail" type="email" placeholder="E-mail">
 <input id="loginPassword" type="password" placeholder="Mot de passe">
-<button onclick="login()">Se connecter</button>
-<button class="secondary" onclick="showAuth('register')">Créer un compte</button>
+<button onclick="doLogin()">Se connecter</button>
+<button class="secondary" onclick="showAuth('registerScreen')">Créer un compte</button>
 </div>
 </section>
-<section id="register" class="hidden">
+
+<section id="registerScreen" class="hidden">
 <div class="card">
 <h2>📝 Inscription</h2>
 <input id="regName" placeholder="Nom complet">
@@ -59,28 +63,34 @@ button.secondary{background:#ffd21f;color:#182033}
 <input id="regPassword" type="password" placeholder="Mot de passe">
 <input id="regRef" placeholder="Code d'invitation (facultatif)">
 <div class="notice">
-🎁 Bonus d'inscription : <b>1 750 FCFA</b>
+🎁 Bonus d'inscription : <b>1 750 FCFA</b><br>
+<small>Bonus simulé uniquement.</small>
 </div>
-<button onclick="register()">Créer mon compte</button>
-<button class="secondary" onclick="showAuth('login')">Retour</button>
+<button onclick="doRegister()">Créer mon compte</button>
+<button class="secondary" onclick="showAuth('loginScreen')">Retour</button>
 </div>
 </section>
+
 <section id="app" class="hidden">
+
 <div id="home">
 <div class="card hero">
 <h2>Bienvenue <span id="welcome"></span> 👋</h2>
 <div class="balance" id="balance">0 FCFA</div>
 <small>Solde du prototype</small>
 </div>
+
 <div class="grid">
 <div class="stat"><b>✈️ Machines</b><p id="machineCount">0</p></div>
 <div class="stat"><b>📈 Revenus</b><p id="revenue">0 FCFA</p></div>
 </div>
+
 <div class="card">
 <h3>📋 Activité récente</h3>
 <div id="activity"></div>
 </div>
 </div>
+
 <div id="machines" class="hidden">
 <div class="card">
 <h2>✈️ Machines disponibles</h2>
@@ -88,83 +98,150 @@ button.secondary{background:#ffd21f;color:#182033}
 Les achats et revenus sont simulés dans ce prototype.
 </div>
 </div>
+
 <div id="products"></div>
+
 <div class="card">
 <h3>✈️ Mes machines</h3>
 <div id="myMachines"></div>
 </div>
 </div>
+
 <div id="wallet" class="hidden">
+
 <div class="card hero">
 <h2>💰 Mon solde</h2>
 <div class="balance" id="walletBalance">0 FCFA</div>
 </div>
+
+<!-- DEPOT USDT -->
+
 <div class="card">
-<h3>📥 Dépôt</h3>
-<select id="depositMethod" onchange="toggleDeposit()">
-<option>Wave</option>
-<option>Orange Money</option>
-<option>MTN Mobile Money</option>
-<option>USDT TRC20</option>
+<h2>💎 Dépôt USDT</h2>
+
+<label>Réseau</label>
+<select id="depositNetwork">
+<option>TRC20 (TRON)</option>
 </select>
-<div id="usdtDepositBox" class="hidden">
-<p><b>Adresse USDT TRC20 de test</b></p>
-<div class="address">
-ADRESSE_TRON_DE_TEST_A_CONFIGURER
+
+<label>Adresse de dépôt</label>
+
+<div class="address" id="usdtAddress">
+TUNMf8zdE4nSxGDAZXbEzd4FTFvLfsjyd4
 </div>
-<button onclick="copyTestAddress()">📋 Copier l'adresse</button>
+
+<button onclick="copyUSDTAddress()">
+📋 Copier l'adresse
+</button>
+
+<input
+id="usdtDemoAmount"
+type="number"
+min="0"
+step="any"
+placeholder="Montant fictif en USDT"
+>
+
+<button onclick="demoUSDTDeposit()">
+Confirmer le dépôt simulé
+</button>
+
+<div class="notice">
+⚠️ Cette page est une démonstration. Aucun transfert USDT réel
+n'est vérifié, reçu ou crédité automatiquement.
 </div>
-<input id="depositAmount" type="number" min="1" placeholder="Montant">
-<button onclick="deposit()">Enregistrer le dépôt</button>
 </div>
+
+<!-- RETRAIT -->
+
 <div class="card">
-<h3>📤 Retrait</h3>
+<h3>📤 Retrait simulé</h3>
+
 <input id="withdrawName" placeholder="Nom complet">
+
 <select id="withdrawMethod" onchange="toggleWithdraw()">
 <option>Wave</option>
 <option>Orange Money</option>
 <option>MTN Mobile Money</option>
 <option>USDT TRC20</option>
 </select>
+
 <input id="withdrawAccount" placeholder="Numéro de compte">
-<input id="withdrawAddress" class="hidden" placeholder="Adresse USDT du destinataire">
-<input id="withdrawAmount" type="number" min="1" placeholder="Montant" oninput="feeCalc()">
+
+<input
+id="withdrawAddress"
+class="hidden"
+placeholder="Adresse USDT du destinataire"
+>
+
+<input
+id="withdrawAmount"
+type="number"
+min="1"
+placeholder="Montant"
+oninput="feeCalc()"
+>
+
 <div class="notice">
-Frais affichés : <b>15 %</b><br>
+Frais : <b>15 %</b><br>
 Frais : <b id="fee">0 FCFA</b><br>
 Net : <b id="net">0 FCFA</b>
 </div>
-<button onclick="withdraw()">Enregistrer le retrait</button>
+
+<button onclick="withdraw()">
+Enregistrer le retrait simulé
+</button>
+
 </div>
+
 <div class="card">
 <h3>📋 Historique</h3>
 <div id="history"></div>
 </div>
+
 </div>
+
+<!-- PARRAINAGE -->
+
 <div id="referral" class="hidden">
+
 <div class="card">
 <h2>👥 Mon parrainage</h2>
+
 <p>Mon code :</p>
-<div class="notice"><b id="myCode"></b></div>
+<div class="notice">
+<b id="myCode"></b>
+</div>
+
 <p>Mon lien :</p>
 <div class="notice" id="myLink"></div>
-<button onclick="copyReferral()">📋 Copier le lien</button>
+
+<button onclick="copyReferral()">
+📋 Copier le lien
+</button>
 </div>
+
 <div class="card">
-<h3>🎁 Récompenses</h3>
+<h3>🎁 Récompenses simulées</h3>
 <p>Niveau 1 : <b>12 %</b></p>
 <p>Niveau 2 : <b>3 %</b></p>
 <p>Niveau 3 : <b>1 %</b></p>
 </div>
+
 <div class="card">
 <h3>👥 Mes filleuls</h3>
 <div id="referrals"></div>
 </div>
+
 <div class="card">
 <h3>📋 Historique du parrain</h3>
 <div id="referralHistory"></div>
 </div>
+
 </div>
+
+<!-- PROFIL -->
+
 <div id="profile" class="hidden">
 <div class="card">
 <h2>👤 Profil</h2>
@@ -173,17 +250,43 @@ Net : <b id="net">0 FCFA</b>
 <button onclick="logout()">Se déconnecter</button>
 </div>
 </div>
+
 </section>
 </div>
+
+<!-- NAVIGATION -->
+
 <div id="nav" class="nav hidden">
-<button onclick="page('home')"><span>🏠</span>Accueil</button>
-<button onclick="page('machines')"><span>✈️</span>Machines</button>
-<button onclick="page('wallet')"><span>💰</span>Solde</button>
-<button onclick="page('referral')"><span>👥</span>Parrainage</button>
-<button onclick="page('profile')"><span>👤</span>Profil</button>
+
+<button onclick="page('home')">
+<span>🏠</span>Accueil
+</button>
+
+<button onclick="page('machines')">
+<span>✈️</span>Machines
+</button>
+
+<button onclick="page('wallet')">
+<span>💰</span>Solde
+</button>
+
+<button onclick="page('referral')">
+<span>👥</span>Parrainage
+</button>
+
+<button onclick="page('profile')">
+<span>👤</span>Profil
+</button>
+
 </div>
+
 <script>
-const PRODUCTS=[
+
+const USDT_ADDRESS =
+"TUNMf8zdE4nSxGDAZXbEzd4FTFvLfsjyd4";
+
+const PRODUCTS = [
+
 {name:"Starter",price:4500,daily:150},
 {name:"Basic",price:10000,daily:300},
 {name:"Plus",price:25000,daily:750},
@@ -193,408 +296,1215 @@ const PRODUCTS=[
 {name:"Gold",price:500000,daily:15000},
 {name:"Elite",price:1000000,daily:30000},
 {name:"VIP",price:2000000,daily:60000}
+
 ];
-const REFERRAL_RATES={1:.12,2:.03,3:.01};
+
+const REFERRAL_RATES={
+1:0.12,
+2:0.03,
+3:0.01
+};
+
 let currentEmail=null;
 let balance=0;
 let machinesData=[];
 let historyData=[];
-function money(v){
-return Number(v||0).toLocaleString("fr-FR")+" FCFA";
+
+function money(value){
+return Number(value||0)
+.toLocaleString("fr-FR")+" FCFA";
 }
+
 function timestamp(){
-return new Date().toLocaleString("fr-FR",{
+return new Date().toLocaleString(
+"fr-FR",
+{
 year:"numeric",
 month:"2-digit",
 day:"2-digit",
 hour:"2-digit",
 minute:"2-digit",
 second:"2-digit"
-});
 }
+);
+}
+
 function getUsers(){
-return JSON.parse(localStorage.getItem("YW_USERS")||"{}");
+
+try{
+return JSON.parse(
+localStorage.getItem("YW_USERS")||"{}"
+);
+}catch(e){
+return {};
 }
+
+}
+
 function saveUsers(users){
-localStorage.setItem("YW_USERS",JSON.stringify(users));
+localStorage.setItem(
+"YW_USERS",
+JSON.stringify(users)
+);
 }
+
 function getUser(){
-return getUsers()[currentEmail]||null;
-}
-function createReferralCode(email){
-return btoa(email).replace(/[^a-zA-Z0-9]/g,"").substring(0,8).toUpperCase();
-}
-function showAuth(id){
-document.getElementById("login").classList.add("hidden");
-document.getElementById("register").classList.add("hidden");
-document.getElementById(id).classList.remove("hidden");
-}
-function register(){
-const name=regName.value.trim();
-const email=regEmail.value.trim().toLowerCase();
-const password=regPassword.value;
-const ref=regRef.value.trim().toUpperCase();
-if(!name||!email||!password){
-alert("Remplis tous les champs.");
-return;
-}
+
 const users=getUsers();
-if(users[email]){
-alert("Ce compte existe déjà.");
+
+return currentEmail
+?users[currentEmail]||null
+:null;
+
+}
+
+function createReferralCode(email){
+
+return btoa(email)
+.replace(/[^a-zA-Z0-9]/g,"")
+.substring(0,8)
+.toUpperCase();
+
+}
+
+function showAuth(id){
+
+document
+.getElementById("loginScreen")
+.classList.add("hidden");
+
+document
+.getElementById("registerScreen")
+.classList.add("hidden");
+
+document
+.getElementById(id)
+.classList.remove("hidden");
+
+}
+
+function applyReferralFromURL(){
+
+const ref=
+new URLSearchParams(location.search)
+.get("ref");
+
+if(ref){
+
+document
+.getElementById("regRef")
+.value=
+ref.toUpperCase();
+
+showAuth("registerScreen");
+
+}
+
+}
+
+function doRegister(){
+
+const name=
+document.getElementById("regName")
+.value.trim();
+
+const email=
+document.getElementById("regEmail")
+.value.trim()
+.toLowerCase();
+
+const password=
+document.getElementById("regPassword")
+.value;
+
+const ref=
+document.getElementById("regRef")
+.value.trim()
+.toUpperCase();
+
+if(!name||!email||!password){
+
+alert("Remplis tous les champs.");
+
 return;
+
 }
+
+const users=getUsers();
+
+if(users[email]){
+
+alert("Ce compte existe déjà.");
+
+return;
+
+}
+
 let parentEmail=null;
+
 for(const key in users){
-if(users[key].referralCode===ref){
+
+if(
+users[key].referralCode===ref
+){
+
 parentEmail=key;
+
 break;
+
 }
+
 }
+
 users[email]={
+
 name,
 email,
 password,
-referralCode:createReferralCode(email),
+
+referralCode:
+createReferralCode(email),
+
 parentEmail,
+
 balance:1750,
+
 machines:[],
-history:[{
+
+history:[
+
+{
 text:"🎁 Bonus d'inscription — 1 750 FCFA",
 amount:1750,
 time:timestamp(),
-status:"Confirmé"
-}],
+status:"Confirmé — simulation"
+}
+
+],
+
 referrals:[],
 referralHistory:[]
+
 };
+
 if(parentEmail){
-users[parentEmail].referrals=users[parentEmail].referrals||[];
-if(!users[parentEmail].referrals.includes(email)){
-users[parentEmail].referrals.push(email);
+
+users[parentEmail].referrals=
+users[parentEmail].referrals||[];
+
+if(
+!users[parentEmail]
+.referrals
+.includes(email)
+){
+
+users[parentEmail]
+.referrals
+.push(email);
+
 }
+
 }
+
 saveUsers(users);
-alert("Compte créé avec 1 750 FCFA de bonus.");
-showAuth("login");
+
+alert(
+"Compte créé avec 1 750 FCFA de bonus simulé."
+);
+
+showAuth("loginScreen");
+
+document
+.getElementById("loginEmail")
+.value=email;
+
 }
-function login(){
-const email=loginEmail.value.trim().toLowerCase();
-const password=loginPassword.value;
+
+function doLogin(){
+
+const email=
+document
+.getElementById("loginEmail")
+.value.trim()
+.toLowerCase();
+
+const password=
+document
+.getElementById("loginPassword")
+.value;
+
 const users=getUsers();
-if(!users[email]||users[email].password!==password){
-alert("Identifiants incorrects.");
+
+if(!email||!password){
+
+alert(
+"Entre ton e-mail et ton mot de passe."
+);
+
 return;
+
 }
+
+if(!users[email]){
+
+alert(
+"Aucun compte trouvé avec cet e-mail."
+);
+
+return;
+
+}
+
+if(
+users[email].password!==password
+){
+
+alert(
+"Mot de passe incorrect."
+);
+
+return;
+
+}
+
 currentEmail=email;
+
 loadUser();
+
 openApp();
+
 }
+
 function loadUser(){
+
 const user=getUser();
+
 if(!user)return;
-balance=Number(user.balance||0);
-machinesData=user.machines||[];
-historyData=user.history||[];
+
+balance=
+Number(user.balance||0);
+
+machinesData=
+Array.isArray(user.machines)
+?user.machines
+:[];
+
+historyData=
+Array.isArray(user.history)
+?user.history
+:[];
+
 }
+
 function saveUser(){
+
+if(!currentEmail)return;
+
 const users=getUsers();
+
 if(!users[currentEmail])return;
+
 users[currentEmail].balance=balance;
-users[currentEmail].machines=machinesData;
-users[currentEmail].history=historyData;
+
+users[currentEmail].machines=
+machinesData;
+
+users[currentEmail].history=
+historyData;
+
 saveUsers(users);
+
 }
+
 function openApp(){
-login.classList.add("hidden");
-register.classList.add("hidden");
-app.classList.remove("hidden");
-nav.classList.remove("hidden");
+
+document
+.getElementById("loginScreen")
+.classList.add("hidden");
+
+document
+.getElementById("registerScreen")
+.classList.add("hidden");
+
+document
+.getElementById("app")
+.classList.remove("hidden");
+
+document
+.getElementById("nav")
+.classList.remove("hidden");
+
 const user=getUser();
-welcome.textContent=user.name;
-profileName.textContent=user.name;
-profileEmail.textContent=user.email;
-myCode.textContent=user.referralCode;
-myLink.textContent=
-location.href.split("?")[0]+"?ref="+user.referralCode;
-render();
-page("home");
+
+if(!user){
+
+logout();
+
+return;
+
 }
+
+document
+.getElementById("welcome")
+.textContent=user.name;
+
+document
+.getElementById("profileName")
+.textContent=user.name;
+
+document
+.getElementById("profileEmail")
+.textContent=user.email;
+
+document
+.getElementById("myCode")
+.textContent=user.referralCode;
+
+document
+.getElementById("myLink")
+.textContent=
+location.href.split("?")[0]
++"?ref="
++encodeURIComponent(user.referralCode);
+
+render();
+
+page("home");
+
+}
+
 function logout(){
+
 currentEmail=null;
 balance=0;
 machinesData=[];
 historyData=[];
-app.classList.add("hidden");
-nav.classList.add("hidden");
-login.classList.remove("hidden");
+
+document
+.getElementById("app")
+.classList.add("hidden");
+
+document
+.getElementById("nav")
+.classList.add("hidden");
+
+showAuth("loginScreen");
+
 }
+
 function page(id){
-["home","machines","wallet","referral","profile"].forEach(x=>{
-document.getElementById(x).classList.add("hidden");
+
+[
+"home",
+"machines",
+"wallet",
+"referral",
+"profile"
+]
+.forEach(function(name){
+
+document
+.getElementById(name)
+.classList.add("hidden");
+
 });
-document.getElementById(id).classList.remove("hidden");
+
+document
+.getElementById(id)
+.classList.remove("hidden");
+
 render();
+
 window.scrollTo(0,0);
+
 }
+
 function renderProducts(){
-products.innerHTML=PRODUCTS.map((p,i)=>`
+
+document
+.getElementById("products")
+.innerHTML=
+PRODUCTS
+.map(function(p,i){
+
+return `
+
 <div class="machine">
+
 <div class="plane">✈️</div>
-<span class="badge">365 JOURS</span>
+
+<span class="badge">
+365 JOURS
+</span>
+
 <h3>${p.name}</h3>
-<p>Prix : <b>${money(p.price)}</b></p>
-<p>Revenu simulé : <b>${money(p.daily)}/24 h</b></p>
+
+<p>
+Prix :
+<b>${money(p.price)}</b>
+</p>
+
+<p>
+Revenu simulé :
+<b>${money(p.daily)}/24 h</b>
+</p>
+
 <button onclick="buyMachine(${i})">
 Acheter
 </button>
+
 </div>
-`).join("");
+
+`;
+
+})
+.join("");
+
 }
-function buyMachine(i){
-const p=PRODUCTS[i];
-if(balance<p.price){
+
+function buyMachine(index){
+
+const product=
+PRODUCTS[index];
+
+if(balance<product.price){
+
 alert("Solde insuffisant.");
+
 return;
+
 }
-balance-=p.price;
+
+balance-=product.price;
+
 machinesData.push({
+
 id:Date.now(),
-name:p.name,
-price:p.price,
-daily:p.daily,
+
+name:product.name,
+
+price:product.price,
+
+daily:product.daily,
+
 lastCredit:Date.now(),
+
 days:0,
+
 credited:0
+
 });
+
 historyData.unshift({
-text:`✈️ Achat — ${p.name} — ${money(p.price)}`,
-amount:p.price,
+
+text:
+`✈️ Achat simulé — ${product.name} — ${money(product.price)}`,
+
+amount:product.price,
+
 time:timestamp(),
-status:"Confirmé"
+
+status:"Confirmé — simulation"
+
 });
+
 saveUser();
-processReferralReward(currentEmail,p.price);
+
+processReferralReward(
+currentEmail,
+product.price
+);
+
 loadUser();
+
 render();
-alert("Machine achetée.");
+
+alert(
+"Machine achetée en simulation."
+);
+
 }
+
 function updateMachines(){
+
 if(!currentEmail)return;
+
 loadUser();
+
 let changed=false;
-machinesData.forEach(m=>{
-if(m.days>=365)return;
-const elapsed=Math.floor((Date.now()-m.lastCredit)/86400000);
+
+machinesData.forEach(function(machine){
+
+if(machine.days>=365)return;
+
+const elapsed=
+Math.floor(
+(
+Date.now()
+-machine.lastCredit
+)/86400000
+);
+
 if(elapsed<=0)return;
-const days=Math.min(elapsed,365-m.days);
-const gain=days*m.daily;
-m.days+=days;
-m.credited+=gain;
-m.lastCredit+=days*86400000;
+
+const days=
+Math.min(
+elapsed,
+365-machine.days
+);
+
+const gain=
+days*machine.daily;
+
+machine.days+=days;
+
+machine.credited+=gain;
+
+machine.lastCredit+=
+days*86400000;
+
 balance+=gain;
+
 historyData.unshift({
-text:`📈 Revenu — ${m.name} — +${money(gain)}`,
+
+text:
+`📈 Revenu simulé — ${machine.name} — +${money(gain)}`,
+
 amount:gain,
+
 time:timestamp(),
-status:"Confirmé"
+
+status:"Confirmé — simulation"
+
 });
+
 changed=true;
+
 });
+
 if(changed){
+
 saveUser();
+
 render();
+
 }
+
 }
+
 function renderMyMachines(){
+
+const box=
+document.getElementById(
+"myMachines"
+);
+
 if(!machinesData.length){
-myMachines.innerHTML='<div class="empty">Aucune machine achetée.</div>';
+
+box.innerHTML=
+'<div class="empty">Aucune machine achetée.</div>';
+
 return;
+
 }
-myMachines.innerHTML=machinesData.map(m=>{
-const progress=Math.min(100,m.days/365*100);
+
+box.innerHTML=
+machinesData
+.map(function(m){
+
+const progress=
+Math.min(
+100,
+m.days/365*100
+);
+
 return `
+
 <div class="machine">
-<div class="plane">✈️</div>
+
+<div class="plane">
+✈️
+</div>
+
 <span class="badge">
-${m.days<365?"ACTIVE":"TERMINÉE"}
+
+${
+m.days<365
+?"ACTIVE"
+:"TERMINÉE"
+}
+
 </span>
+
 <h3>${m.name}</h3>
-<p>Jour : <b>${m.days}/365</b></p>
+
+<p>
+Jour :
+<b>${m.days}/365</b>
+</p>
+
 <div class="progress">
 <div style="width:${progress}%"></div>
 </div>
-<p>Revenus : <b>${money(m.credited)}</b></p>
+
+<p>
+Revenus :
+<b>${money(m.credited)}</b>
+</p>
+
 </div>
+
 `;
-}).join("");
+
+})
+.join("");
+
 }
-function processReferralReward(buyerEmail,purchaseAmount){
+
+function processReferralReward(
+buyerEmail,
+purchaseAmount
+){
+
 const users=getUsers();
+
 let current=buyerEmail;
-for(let level=1;level<=3;level++){
+
+for(
+let level=1;
+level<=3;
+level++
+){
+
 const buyer=users[current];
-if(!buyer||!buyer.parentEmail)break;
-const parent=users[buyer.parentEmail];
+
+if(
+!buyer||
+!buyer.parentEmail
+){
+
+break;
+
+}
+
+const parent=
+users[buyer.parentEmail];
+
 if(!parent)break;
-const reward=purchaseAmount*REFERRAL_RATES[level];
-parent.balance=Number(parent.balance||0)+reward;
-parent.referralHistory=parent.referralHistory||[];
-parent.history=parent.history||[];
+
+const reward=
+purchaseAmount*
+REFERRAL_RATES[level];
+
+parent.balance=
+Number(parent.balance||0)+reward;
+
+parent.referralHistory=
+parent.referralHistory||[];
+
+parent.history=
+parent.history||[];
+
 parent.referralHistory.unshift({
+
 filleul:buyer.name,
+
 level,
-percentage:REFERRAL_RATES[level]*100,
+
+percentage:
+REFERRAL_RATES[level]*100,
+
 reward,
+
 purchase:purchaseAmount,
+
 time:timestamp(),
-status:"Confirmé"
+
+status:"Confirmé — simulation"
+
 });
+
 parent.history.unshift({
-text:`🎁 Parrainage niveau ${level} — ${buyer.name} — +${money(reward)}`,
+
+text:
+`🎁 Parrainage niveau ${level} — ${buyer.name} — +${money(reward)}`,
+
 amount:reward,
+
 time:timestamp(),
-status:"Confirmé"
+
+status:"Confirmé — simulation"
+
 });
+
 current=buyer.parentEmail;
+
 }
+
 saveUsers(users);
+
 }
+
 function renderReferrals(){
+
 const users=getUsers();
+
 const user=getUser();
-if(!user||!user.referrals||!user.referrals.length){
-referrals.innerHTML='<div class="empty">Aucun filleul.</div>';
+
+const box=
+document.getElementById("referrals");
+
+if(
+!user||
+!user.referrals||
+!user.referrals.length
+){
+
+box.innerHTML=
+'<div class="empty">Aucun filleul.</div>';
+
 return;
+
 }
-referrals.innerHTML=user.referrals.map(email=>{
+
+box.innerHTML=
+user.referrals
+.map(function(email){
+
 const child=users[email];
+
 if(!child)return "";
+
 return `
+
 <div class="item">
-👤 <b>${child.name}</b><br>
-📧 ${child.email}<br>
+
+👤 <b>${child.name}</b>
+
+<br>
+
+📧 ${child.email}
+
+<br>
+
 🔗 Niveau 1
+
 </div>
+
 `;
-}).join("");
+
+})
+.join("");
+
 }
+
 function renderReferralHistory(){
+
 const user=getUser();
-if(!user||!user.referralHistory||!user.referralHistory.length){
-referralHistory.innerHTML='<div class="empty">Aucune récompense.</div>';
-return;
-}
-referralHistory.innerHTML=user.referralHistory.map(x=>`
-<div class="item">
-👤 Filleul : <b>${x.filleul}</b><br>
-🔗 Niveau : <b>${x.level}</b><br>
-📊 Taux : <b>${x.percentage}%</b><br>
-🎁 Récompense : <b>${money(x.reward)}</b><br>
-📅 ${x.time}<br>
-<span class="status">${x.status}</span>
-</div>
-`).join("");
-}
-function toggleDeposit(){
-const usdt=depositMethod.value==="USDT TRC20";
-usdtDepositBox.classList.toggle("hidden",!usdt);
-}
-function copyTestAddress(){
-navigator.clipboard.writeText(
-"ADRESSE_TRON_DE_TEST_A_CONFIGURER"
+
+const box=
+document.getElementById(
+"referralHistory"
 );
-alert("Adresse de test copiée.");
+
+if(
+!user||
+!user.referralHistory||
+!user.referralHistory.length
+){
+
+box.innerHTML=
+'<div class="empty">Aucune récompense.</div>';
+
+return;
+
 }
-function toggleWithdraw(){
-const usdt=withdrawMethod.value==="USDT TRC20";
-withdrawAccount.classList.toggle("hidden",usdt);
-withdrawAddress.classList.toggle("hidden",!usdt);
+
+box.innerHTML=
+user.referralHistory
+.map(function(x){
+
+return `
+
+<div class="item">
+
+👤 Filleul :
+<b>${x.filleul}</b>
+
+<br>
+
+🔗 Niveau :
+<b>${x.level}</b>
+
+<br>
+
+📊 Taux :
+<b>${x.percentage}%</b>
+
+<br>
+
+🎁 Récompense :
+<b>${money(x.reward)}</b>
+
+<br>
+
+🛒 Achat :
+<b>${money(x.purchase)}</b>
+
+<br>
+
+📅 ${x.time}
+
+<br>
+
+<span class="status">
+${x.status}
+</span>
+
+</div>
+
+`;
+
+})
+.join("");
+
 }
-function deposit(){
-const amount=Number(depositAmount.value);
+
+function copyUSDTAddress(){
+
+if(
+navigator.clipboard
+){
+
+navigator.clipboard
+.writeText(USDT_ADDRESS)
+.then(function(){
+
+alert("Adresse USDT copiée.");
+
+})
+.catch(function(){
+
+alert(
+"Adresse : "+USDT_ADDRESS
+);
+
+});
+
+}else{
+
+alert(
+"Adresse : "+USDT_ADDRESS
+);
+
+}
+
+}
+
+function demoUSDTDeposit(){
+
+const amount=
+Number(
+document
+.getElementById("usdtDemoAmount")
+.value
+);
+
 if(!amount||amount<=0){
-alert("Montant invalide.");
-return;
-}
-historyData.unshift({
-text:`📥 Dépôt — ${depositMethod.value} — ${money(amount)}`,
-amount,
-time:timestamp(),
-status:"Enregistré"
-});
-saveUser();
-render();
-alert("Dépôt enregistré dans le prototype.");
-}
-function feeCalc(){
-const amount=Number(withdrawAmount.value)||0;
-const feeValue=amount*.15;
-const netValue=Math.max(0,amount-feeValue);
-fee.textContent=money(feeValue);
-net.textContent=money(netValue);
-}
-function withdraw(){
-const amount=Number(withdrawAmount.value);
-const name=withdrawName.value.trim();
-if(!name||!amount||amount<=0){
-alert("Informations incomplètes.");
-return;
-}
-historyData.unshift({
-text:`📤 Retrait — ${withdrawMethod.value} — ${money(amount)}`,
-amount,
-time:timestamp(),
-status:"Enregistré"
-});
-saveUser();
-render();
-alert("Retrait enregistré dans le prototype.");
-}
-function renderHistory(){
-if(!historyData.length){
-history.innerHTML='<div class="empty">Aucune opération.</div>';
-activity.innerHTML='<div class="empty">Aucune activité.</div>';
-return;
-}
-history.innerHTML=historyData.slice(0,50).map(x=>`
-<div class="item">
-<b>${x.text}</b><br>
-<small>📅 ${x.time}</small><br>
-<span class="status">${x.status}</span>
-</div>
-`).join("");
-activity.innerHTML=historyData.slice(0,6).map(x=>`
-<div class="item">
-${x.text}<br>
-<small>${x.time}</small>
-</div>
-`).join("");
-}
-function render(){
-loadUser();
-balanceElSafe();
-renderProducts();
-renderMyMachines();
-renderHistory();
-renderReferrals();
-renderReferralHistory();
-feeCalc();
-}
-function balanceElSafe(){
-document.getElementById("balance").textContent=money(balance);
-document.getElementById("walletBalance").textContent=money(balance);
-document.getElementById("machineCount").textContent=machinesData.length;
-const total=machinesData.reduce(
-(sum,m)=>sum+Number(m.credited||0),0
+
+alert(
+"Entre un montant fictif."
 );
-document.getElementById("revenue").textContent=money(total);
+
+return;
+
 }
+
+historyData.unshift({
+
+text:
+`📥 Dépôt USDT TRC20 simulé — ${amount} USDT`,
+
+amount:0,
+
+time:timestamp(),
+
+status:"Simulation — non vérifié"
+
+});
+
+saveUser();
+
+render();
+
+alert(
+"Dépôt enregistré comme simulation. Aucun transfert réel n'a été vérifié ou crédité."
+);
+
+}
+
+function toggleWithdraw(){
+
+const usdt=
+document
+.getElementById("withdrawMethod")
+.value
+==="USDT TRC20";
+
+document
+.getElementById("withdrawAccount")
+.classList
+.toggle("hidden",usdt);
+
+document
+.getElementById("withdrawAddress")
+.classList
+.toggle("hidden",!usdt);
+
+}
+
+function feeCalc(){
+
+const amount=
+Number(
+document
+.getElementById("withdrawAmount")
+.value
+)||0;
+
+const feeValue=
+amount*.15;
+
+const netValue=
+Math.max(
+0,
+amount-feeValue
+);
+
+document
+.getElementById("fee")
+.textContent=
+money(feeValue);
+
+document
+.getElementById("net")
+.textContent=
+money(netValue);
+
+}
+
+function withdraw(){
+
+const amount=
+Number(
+document
+.getElementById("withdrawAmount")
+.value
+);
+
+const name=
+document
+.getElementById("withdrawName")
+.value
+.trim();
+
+if(
+!name||
+!amount||
+amount<=0
+){
+
+alert(
+"Informations incomplètes."
+);
+
+return;
+
+}
+
+historyData.unshift({
+
+text:
+`📤 Retrait simulé — ${
+document.getElementById("withdrawMethod").value
+} — ${money(amount)}`,
+
+amount:0,
+
+time:timestamp(),
+
+status:"Simulation — non exécuté"
+
+});
+
+saveUser();
+
+render();
+
+alert(
+"Retrait enregistré en simulation. Aucun paiement réel n'a été effectué."
+);
+
+}
+
+function renderHistory(){
+
+const historyBox=
+document.getElementById("history");
+
+const activityBox=
+document.getElementById("activity");
+
+if(!historyData.length){
+
+historyBox.innerHTML=
+'<div class="empty">Aucune opération.</div>';
+
+activityBox.innerHTML=
+'<div class="empty">Aucune activité.</div>';
+
+return;
+
+}
+
+historyBox.innerHTML=
+historyData
+.slice(0,50)
+.map(function(x){
+
+return `
+
+<div class="item">
+
+<b>${x.text}</b>
+
+<br>
+
+<small>
+📅 ${x.time}
+</small>
+
+<br>
+
+<span class="status">
+${x.status}
+</span>
+
+</div>
+
+`;
+
+})
+.join("");
+
+activityBox.innerHTML=
+historyData
+.slice(0,6)
+.map(function(x){
+
+return `
+
+<div class="item">
+
+${x.text}
+
+<br>
+
+<small>
+${x.time}
+</small>
+
+</div>
+
+`;
+
+})
+.join("");
+
+}
+
+function render(){
+
+loadUser();
+
+document
+.getElementById("balance")
+.textContent=
+money(balance);
+
+document
+.getElementById("walletBalance")
+.textContent=
+money(balance);
+
+document
+.getElementById("machineCount")
+.textContent=
+machinesData.length;
+
+const totalRevenue=
+machinesData.reduce(
+function(total,m){
+
+return total+
+Number(m.credited||0);
+
+},
+0
+);
+
+document
+.getElementById("revenue")
+.textContent=
+money(totalRevenue);
+
+renderProducts();
+
+renderMyMachines();
+
+renderHistory();
+
+renderReferrals();
+
+renderReferralHistory();
+
+feeCalc();
+
+}
+
 function copyReferral(){
-navigator.clipboard.writeText(
-document.getElementById("myLink").textContent
-).then(()=>alert("Lien copié."));
+
+const link=
+document
+.getElementById("myLink")
+.textContent;
+
+if(navigator.clipboard){
+
+navigator.clipboard
+.writeText(link)
+.then(function(){
+
+alert("Lien copié.");
+
+});
+
+}else{
+
+alert(link);
+
 }
-setInterval(updateMachines,1000);
+
+}
+
+applyReferralFromURL();
+
+setInterval(
+updateMachines,
+1000
+);
+
 </script>
+
 </body>
 </html>
