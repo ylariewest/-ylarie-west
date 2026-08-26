@@ -1,44 +1,852 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ylarie West — Démo</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#fffdf5;color:#182033;padding-bottom:80px}
+header{background:linear-gradient(135deg,#ffd21f,#ffb800);padding:22px;text-align:center}
+header h1{margin:0;font-size:27px}
+header p{margin:6px 0 0;font-size:12px}
+.container{max-width:680px;margin:auto;padding:16px}
+.card{background:#fff;border-radius:20px;padding:20px;margin-bottom:16px;box-shadow:0 6px 22px #00000010}
+.hero{background:linear-gradient(135deg,#fff2a8,#ffd21f)}
+.balance{font-size:30px;font-weight:800;margin:12px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{background:#fff8d9;border-radius:15px;padding:14px}
+.machine{border:2px solid #ffe06a;border-radius:20px;padding:18px;margin:14px 0}
+.plane{text-align:center;font-size:48px}
+button{border:0;border-radius:12px;padding:13px;background:#182033;color:#fff;font-weight:bold;cursor:pointer}
+.full{width:100%}
+input,select{width:100%;padding:13px;border:1px solid #ddd;border-radius:10px;margin:7px 0}
+.badge{display:inline-block;background:#ffd21f;padding:6px 10px;border-radius:20px;font-size:12px;font-weight:bold}
+.progress{height:9px;background:#eee;border-radius:20px;overflow:hidden;margin:12px 0}
+.progress div{height:100%;background:#ffd21f}
+.hidden{display:none}
+.notice{background:#fff4c2;padding:12px;border-radius:12px;font-size:13px}
+.item{padding:12px 0;border-bottom:1px solid #eee}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:8px;box-shadow:0 -5px 20px #0002;z-index:5}
+.nav button{background:none;color:#182033;font-size:11px;padding:4px}
+.nav span{display:block;font-size:20px}
+.timer{text-align:center;background:#fff8d9;padding:10px;border-radius:10px;font-weight:bold}
+.address{word-break:break-all;background:#f8f8f8;padding:12px;border-radius:10px;font-size:13px}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Ylarie West ✈️</h1>
+<p>PLATEFORME DE DÉMONSTRATION</p>
+</header>
+
+<div class="container">
+
+<section id="login">
 <div class="card">
-  <h2>💎 Dépôt USDT</h2>
+<h2>🔐 Connexion</h2>
+<input id="email" type="email" placeholder="E-mail">
+<input id="password" type="password" placeholder="Mot de passe">
+<button class="full" onclick="login()">Se connecter</button>
+<br><br>
+<button class="full" onclick="show('register')">Créer un compte</button>
+</div>
+</section>
 
-  <label>Réseau</label>
-  <select>
-    <option>TRC20 (TRON)</option>
-  </select>
+<section id="register" class="hidden">
+<div class="card">
+<h2>📝 Inscription</h2>
+<input id="name" placeholder="Nom complet">
+<input id="newEmail" type="email" placeholder="E-mail">
+<input id="newPassword" type="password" placeholder="Mot de passe">
+<button class="full" onclick="register()">Créer mon compte</button>
+<br><br>
+<button class="full" onclick="show('login')">Retour</button>
+</div>
+</section>
 
-  <label>Adresse de dépôt</label>
-  <div class="notice" style="word-break:break-all;">
-    TUNMf8zdE4nSxGDAZXbEzd4FTFvLfsjyd4
-  </div>
+<section id="app" class="hidden">
 
-  <label>Montant fictif</label>
-  <input type="number" id="usdtDemoAmount" placeholder="Montant en USDT">
+<div id="home">
+<div class="card hero">
+<span class="badge">DÉMO</span>
+<h2>Bienvenue <span id="welcome"></span> 👋</h2>
+<div class="balance" id="balance"></div>
+<small>Solde fictif</small>
+</div>
 
-  <button class="full" onclick="demoUSDTDeposit()">
-    Confirmer le dépôt
-  </button>
+<div class="grid">
+<div class="stat"><b>✈️ Machines</b><p id="count">0</p></div>
+<div class="stat"><b>📈 Revenus</b><p id="revenue">0 FCFA</p></div>
+</div>
 
-  <br><br>
+<div class="card">
+<h2>📋 Activité récente</h2>
+<div id="activity"></div>
+</div>
+</div>
 
-  <div class="notice">
-    ⚠️ Mode démonstration : aucun transfert USDT réel
-    n'est effectué par cette page.
-  </div>
+<div id="machines" class="hidden">
+<div class="card">
+<h2>✈️ Machines</h2>
+<p>Achats et revenus entièrement simulés.</p>
+</div>
+
+<div id="machineList"></div>
+
+<div class="card">
+<h2>⚙️ Mes machines</h2>
+<div id="myMachines"></div>
+</div>
+</div>
+
+<div id="wallet" class="hidden">
+
+<div class="card hero">
+<h2>💰 Mon solde</h2>
+<div class="balance" id="walletBalance"></div>
+</div>
+
+<div class="card">
+<h2>📥 Dépôt</h2>
+
+<select id="depositMethod" onchange="toggleUSDT()">
+<option>Wave</option>
+<option>MTN Mobile Money</option>
+<option>Orange Money</option>
+<option>USDT</option>
+</select>
+
+<div id="usdtBox" class="hidden">
+
+<p><b>💎 Réseau : TRC20 (TRON)</b></p>
+
+<p>Adresse USDT de démonstration :</p>
+
+<div class="address">
+TUNMf8zdE4nSxGDAZXbEzd4FTFvLfsjyd4
+</div>
+
+<br>
+
+<button class="full" onclick="copyUSDT()">
+📋 Copier l'adresse
+</button>
+
+<br><br>
+
+<div class="notice">
+⚠️ Mode démonstration : aucun transfert USDT réel n'est effectué.
+</div>
+
+</div>
+
+<input id="depositAmount" type="number" placeholder="Montant fictif">
+
+<button class="full" onclick="demoDeposit()">
+Confirmer le dépôt
+</button>
+</div>
+
+<div class="card">
+<h2>📤 Retrait</h2>
+
+<select id="withdrawMethod">
+<option>Wave</option>
+<option>MTN Mobile Money</option>
+<option>Orange Money</option>
+<option>USDT</option>
+</select>
+
+<input id="withdrawAmount" type="number" placeholder="Montant fictif">
+
+<button class="full" onclick="demoWithdraw()">
+Confirmer le retrait
+</button>
+</div>
+
+<div class="notice">
+⚠️ Mode démonstration : aucun transfert réel n'est effectué.
+</div>
+
+<div class="card">
+<h2>📋 Historique</h2>
+<div id="history"></div>
+</div>
+
+</div>
+
+<div id="referral" class="hidden">
+
+<div class="card">
+<h2>👥 Parrainage</h2>
+
+<p>Ton lien personnel de démonstration :</p>
+
+<div class="notice" id="refLink"></div>
+
+<br>
+
+<button class="full" onclick="copyLink()">
+🔗 Copier le lien
+</button>
+</div>
+
+<div class="card">
+<h3>🎁 Commissions simulées</h3>
+<p>Niveau 1 : <b>12 %</b></p>
+<p>Niveau 2 : <b>3 %</b></p>
+<p>Niveau 3 : <b>1 %</b></p>
+<p>Une seule commission par invité.</p>
+</div>
+
+</div>
+
+<div id="profile" class="hidden">
+
+<div class="card">
+<h2>👤 Profil</h2>
+
+<p><b>Nom :</b> <span id="profileName"></span></p>
+<p><b>E-mail :</b> <span id="profileEmail"></span></p>
+
+<button class="full" onclick="logout()">
+Se déconnecter
+</button>
+
+</div>
+
+</div>
+
+</section>
+</div>
+
+<div id="nav" class="nav hidden">
+
+<button onclick="page('home')">
+<span>🏠</span>Accueil
+</button>
+
+<button onclick="page('machines')">
+<span>✈️</span>Machines
+</button>
+
+<button onclick="page('wallet')">
+<span>💰</span>Solde
+</button>
+
+<button onclick="page('referral')">
+<span>👥</span>Parrainage
+</button>
+
+<button onclick="page('profile')">
+<span>👤</span>Profil
+</button>
+
 </div>
 
 <script>
-function demoUSDTDeposit() {
-  const amount = Number(document.getElementById("usdtDemoAmount").value);
 
-  if (!amount || amount <= 0) {
-    alert("Entre un montant fictif.");
-    return;
-  }
+const PRODUCTS=[
+{name:"Starter",price:4500,daily:150},
+{name:"Basic",price:10000,daily:300},
+{name:"Plus",price:25000,daily:750},
+{name:"Premium",price:55000,daily:1650},
+{name:"Pro",price:100000,daily:3000},
+{name:"Business",price:200000,daily:6000},
+{name:"Gold",price:500000,daily:15000},
+{name:"Elite",price:1000000,daily:30000},
+{name:"VIP",price:2000000,daily:60000}
+];
 
-  alert(
-    "Dépôt USDT simulé de " +
-    amount +
-    " USDT. Aucun transfert réel n’a été effectué."
-  );
+let balance=Number(localStorage.getItem("balance")||125000);
+
+let machines=
+JSON.parse(localStorage.getItem("machines")||"[]");
+
+let history=
+JSON.parse(localStorage.getItem("history")||"[]");
+
+function money(n){
+
+return Number(n).toLocaleString("fr-FR")+" FCFA";
+
 }
+
+function save(){
+
+localStorage.setItem("balance",balance);
+
+localStorage.setItem(
+"machines",
+JSON.stringify(machines)
+);
+
+localStorage.setItem(
+"history",
+JSON.stringify(history)
+);
+
+}
+
+function register(){
+
+const n=
+document.getElementById("name").value.trim();
+
+const e=
+document.getElementById("newEmail").value.trim();
+
+const p=
+document.getElementById("newPassword").value;
+
+if(!n||!e||!p)
+return alert("Remplis tous les champs.");
+
+localStorage.setItem("userName",n);
+localStorage.setItem("userEmail",e);
+localStorage.setItem("userPassword",p);
+
+alert("Compte de démonstration créé.");
+
+show("login");
+
+}
+
+function login(){
+
+const e=
+document.getElementById("email").value;
+
+const p=
+document.getElementById("password").value;
+
+if(
+e===localStorage.getItem("userEmail") &&
+p===localStorage.getItem("userPassword")
+){
+
+openApp();
+
+}else{
+
+alert("Identifiants incorrects.");
+
+}
+
+}
+
+function openApp(){
+
+document.getElementById("login")
+.classList.add("hidden");
+
+document.getElementById("register")
+.classList.add("hidden");
+
+document.getElementById("app")
+.classList.remove("hidden");
+
+document.getElementById("nav")
+.classList.remove("hidden");
+
+document.getElementById("welcome")
+.textContent=
+localStorage.getItem("userName")||"Utilisateur";
+
+document.getElementById("profileName")
+.textContent=
+localStorage.getItem("userName")||"";
+
+document.getElementById("profileEmail")
+.textContent=
+localStorage.getItem("userEmail")||"";
+
+document.getElementById("refLink")
+.textContent=
+"https://ylariewest.github.io/-ylarie-west/?ref=DEMO";
+
+renderAll();
+
+page("home");
+
+}
+
+function show(id){
+
+document.getElementById("login")
+.classList.add("hidden");
+
+document.getElementById("register")
+.classList.add("hidden");
+
+document.getElementById(id)
+.classList.remove("hidden");
+
+}
+
+function page(id){
+
+[
+"home",
+"machines",
+"wallet",
+"referral",
+"profile"
+].forEach(x=>
+document.getElementById(x)
+.classList.add("hidden")
+);
+
+document.getElementById(id)
+.classList.remove("hidden");
+
+renderAll();
+
+window.scrollTo(0,0);
+
+}
+
+function renderProducts(){
+
+const box=
+document.getElementById("machineList");
+
+box.innerHTML="";
+
+PRODUCTS.forEach((p,i)=>{
+
+box.innerHTML+=`
+
+<div class="machine">
+
+<div class="plane">✈️</div>
+
+<span class="badge">
+365 JOURS
+</span>
+
+<h3>
+Machine ${p.name}
+</h3>
+
+<p>
+Prix :
+<b>${money(p.price)}</b>
+</p>
+
+<p>
+Revenu simulé :
+<b>${money(p.daily)} / 24 h</b>
+</p>
+
+<button class="full"
+onclick="buy(${i})">
+
+🛒 Acheter en démo
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+function buy(i){
+
+const p=PRODUCTS[i];
+
+if(balance<p.price)
+
+return alert(
+"Solde fictif insuffisant."
+);
+
+balance-=p.price;
+
+machines.push({
+
+id:Date.now(),
+
+name:p.name,
+
+price:p.price,
+
+daily:p.daily,
+
+start:Date.now(),
+
+lastCredit:Date.now(),
+
+credited:0,
+
+days:0
+
+});
+
+history.unshift(
+
+`✈️ Achat simulé — Machine ${p.name} — ${money(p.price)}`
+
+);
+
+save();
+
+renderAll();
+
+alert(
+"Machine "+p.name+
+" ajoutée à vos machines de démonstration."
+);
+
+}
+
+function updateMachines(){
+
+let changed=false;
+
+machines.forEach(m=>{
+
+const elapsed=
+Date.now()-m.lastCredit;
+
+const cycles=
+Math.floor(elapsed/86400000);
+
+if(cycles>0 && m.days<365){
+
+const possibleDays=
+Math.min(cycles,365-m.days);
+
+const gain=
+possibleDays*m.daily;
+
+m.days+=possibleDays;
+
+m.credited+=gain;
+
+m.lastCredit+=
+possibleDays*86400000;
+
+balance+=gain;
+
+history.unshift(
+
+`📈 Revenu simulé — Machine ${m.name} — +${money(gain)}`
+
+);
+
+changed=true;
+
+}
+
+});
+
+if(changed)save();
+
+renderAll();
+
+}
+
+function renderMyMachines(){
+
+const box=
+document.getElementById("myMachines");
+
+if(!machines.length){
+
+box.innerHTML=
+"<p>Aucune machine achetée.</p>";
+
+return;
+
+}
+
+box.innerHTML="";
+
+machines.forEach(m=>{
+
+const progress=
+(m.days/365)*100;
+
+const remaining=
+Math.max(
+0,
+86400000-(Date.now()-m.lastCredit)
+);
+
+const h=
+Math.floor(
+remaining/3600000
+);
+
+const min=
+Math.floor(
+(remaining%3600000)/60000
+);
+
+box.innerHTML+=`
+
+<div class="machine">
+
+<div class="plane">
+✈️
+</div>
+
+<span class="badge">
+${m.days<365?"🟢 ACTIVE":"TERMINÉE"}
+</span>
+
+<h3>
+Machine ${m.name}
+</h3>
+
+<p>
+Prix d'achat :
+<b>${money(m.price)}</b>
+</p>
+
+<p>
+Date d'achat :
+<b>${new Date(m.start).toLocaleString("fr-FR")}</b>
+</p>
+
+<p>
+Jour :
+<b>${m.days}/365</b>
+</p>
+
+<div class="progress">
+<div style="width:${progress}%"></div>
+</div>
+
+<p>
+Revenus cumulés :
+<b>${money(m.credited)}</b>
+</p>
+
+<div class="timer">
+⏰ Prochain revenu simulé :
+${h}h ${min}min
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function toggleUSDT(){
+
+const method=
+document.getElementById("depositMethod").value;
+
+const box=
+document.getElementById("usdtBox");
+
+if(method==="USDT"){
+
+box.classList.remove("hidden");
+
+}else{
+
+box.classList.add("hidden");
+
+}
+
+}
+
+function copyUSDT(){
+
+const address=
+"TUNMf8zdE4nSxGDAZXbEzd4FTFvLfsjyd4";
+
+navigator.clipboard.writeText(address);
+
+alert(
+"Adresse USDT copiée."
+);
+
+}
+
+function demoDeposit(){
+
+const amount=
+Number(
+document.getElementById("depositAmount").value
+);
+
+const method=
+document.getElementById("depositMethod").value;
+
+if(!amount||amount<=0)
+
+return alert(
+"Entre un montant fictif."
+);
+
+history.unshift(
+
+`📥 Dépôt simulé — ${method} — ${money(amount)}`
+
+);
+
+save();
+
+renderAll();
+
+alert(
+
+"Fonction dépôt actuellement en mode démonstration. "+
+"Aucun transfert réel n’a été effectué."
+
+);
+
+}
+
+function demoWithdraw(){
+
+const amount=
+Number(
+document.getElementById("withdrawAmount").value
+);
+
+const method=
+document.getElementById("withdrawMethod").value;
+
+if(!amount||amount<=0)
+
+return alert(
+"Entre un montant fictif."
+);
+
+history.unshift(
+
+`📤 Retrait simulé — ${method} — ${money(amount)}`
+
+);
+
+save();
+
+renderAll();
+
+alert(
+
+"Fonction retrait actuellement en mode démonstration. "+
+"Aucun transfert réel n’a été effectué."
+
+);
+
+}
+
+function renderHistory(){
+
+const box=
+document.getElementById("history");
+
+const activity=
+document.getElementById("activity");
+
+if(!history.length){
+
+box.innerHTML=
+"<p>Aucune opération.</p>";
+
+activity.innerHTML=
+"<p>Aucune activité.</p>";
+
+return;
+
+}
+
+box.innerHTML=
+history.slice(0,30)
+.map(x=>
+`<div class="item">${x}</div>`
+)
+.join("");
+
+activity.innerHTML=
+history.slice(0,6)
+.map(x=>
+`<div class="item">${x}</div>`
+)
+.join("");
+
+}
+
+function renderAll(){
+
+document.getElementById("balance")
+.textContent=
+money(balance);
+
+document.getElementById("walletBalance")
+.textContent=
+money(balance);
+
+document.getElementById("count")
+.textContent=
+machines.length;
+
+const total=
+machines.reduce(
+(s,m)=>s+m.credited,
+0
+);
+
+document.getElementById("revenue")
+.textContent=
+money(total);
+
+renderProducts();
+
+renderMyMachines();
+
+renderHistory();
+
+}
+
+function copyLink(){
+
+const link=
+document.getElementById("refLink")
+.textContent;
+
+navigator.clipboard.writeText(link);
+
+alert(
+"Lien de démonstration copié."
+);
+
+}
+
+function logout(){
+
+document.getElementById("app")
+.classList.add("hidden");
+
+document.getElementById("nav")
+.classList.add("hidden");
+
+document.getElementById("login")
+.classList.remove("hidden");
+
+}
+
+setInterval(
+updateMachines,
+1000
+);
+
 </script>
+
+</body>
+</html>
